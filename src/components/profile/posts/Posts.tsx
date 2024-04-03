@@ -9,9 +9,9 @@ export const Posts = () => {
                 <textarea placeholder={'Add new post'}></textarea>
                 <button>Add</button>
             </div>
-            <Post message={'My first post'}/>
-            <Post message={'Hello!'}/>
-            <Post message={'How are you?'}/>
+            <Post message={'My first post'} likesCount={0}/>
+            <Post message={'Hello!'} likesCount={2}/>
+            <Post message={'How are you?'} likesCount={14}/>
         </div>
     );
 };

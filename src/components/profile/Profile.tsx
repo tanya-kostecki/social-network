@@ -4,7 +4,7 @@ import {Posts} from "./posts/Posts";
 
 export const Profile = () => {
     return (
-        <main className={classes.content}>
+        <main className='content'>
             <img
                 src={'https://img.freepik.com/free-photo/painting-mountain-lake-with-mountain-background_188544-9126.jpg'}
                 alt={'background'}
