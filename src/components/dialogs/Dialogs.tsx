@@ -21,25 +21,34 @@ type MessageProps = {
 const Message = (props: MessageProps) => {
     return <div className={classes.message}>{props.message}</div>
 }
+
 export const Dialogs = () => {
+    const dialogsData = [
+        {id: '1', name: 'Dimych'},
+        {id: '2', name: 'Andrey'},
+        {id: '3', name: 'Sveta'},
+        {id: '4', name: 'Sasha'},
+        {id: '5', name: 'Viktor'},
+        {id: '6', name: 'Valera'},
+        {id: '7', name: 'Igor'},
+    ]
+
+    const messages = [
+        {id: 1, message: 'Hi'},
+        {id: 2, message: 'Hello'},
+        {id: 3, message: 'How are you?'}
+    ]
     return (
         <main className='content'>
             Dialogs
             <div className={classes.dialogsContent}>
                 <section className={classes.dialogs}>
-                    <DialogItem className={classes.dialog + ' ' + classes.active} id={'1'} name={'Dimych'}/>
-                    <DialogItem className={classes.dialog} id={'2'} name={'Andrey'}/>
-                    <DialogItem className={classes.dialog} id={'3'} name={'Sveta'}/>
-                    <DialogItem className={classes.dialog} id={'4'} name={'Sasha'}/>
-                    <DialogItem className={classes.dialog} id={'5'} name={'Viktor'}/>
-                    <DialogItem className={classes.dialog} id={'6'} name={'Valera'}/>
-                    <DialogItem className={classes.dialog} id={'7'} name={'Igor'}/>
+                    {dialogsData.map((dialog) => <DialogItem className={classes.dialog} id={dialog.id}
+                                                             name={dialog.name}/>)}
                 </section>
 
                 <section className={classes.messages}>
-                    <Message message={'hi'}/>
-                    <Message message={'How are you?'}/>
-                    <Message message={'Hello'}/>
+                    {messages.map(m => <Message key={m.id} message={m.message}/>) }
                 </section>
             </div>
         </main>
