@@ -4,14 +4,17 @@ import {Post} from "./post/Post";
 
 export const Posts = () => {
     return (
-        <div className={classes.posts}>My posts
+        <div className={classes.posts}>
+            <h3>My posts</h3>
             <div>
                 <textarea placeholder={'Add new post'}></textarea>
-                <button>Add</button>
+                <button className={classes.button}>Add</button>
             </div>
-            <Post message={'My first post'} likesCount={0}/>
-            <Post message={'Hello!'} likesCount={2}/>
-            <Post message={'How are you?'} likesCount={14}/>
+            <div className={classes.postsBlock}>
+                <Post message={'My first post'} likesCount={0}/>
+                <Post message={'Hello!'} likesCount={2}/>
+                <Post message={'How are you?'} likesCount={14}/>
+            </div>
         </div>
     );
 };
