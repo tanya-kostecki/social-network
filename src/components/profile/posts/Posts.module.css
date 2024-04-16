@@ -1,0 +1,18 @@
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.button {
+    display: block;
+}
+
+.postsBlock {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
