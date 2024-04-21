@@ -1,6 +1,6 @@
 import React from 'react';
 import {Posts} from "./posts/Posts";
-import {ProfileInfo} from "./posts/profile-info/ProfileInfo";
+import {ProfileInfo} from "./profile-info/ProfileInfo";
 
 export const Profile = () => {
     return (
