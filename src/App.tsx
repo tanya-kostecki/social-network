@@ -4,7 +4,7 @@ import {Header} from "./components/header/Header";
 import {Navbar} from "./components/navbar/Navbar";
 import {Profile} from "./components/profile/Profile";
 import {Dialogs} from "./components/dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
@@ -24,6 +24,12 @@ export type MessageType = {
     message: string
 }
 
+export type FriendType = {
+    id: number
+    name: string
+    avatar: string
+}
+
 type AppProps = {
     state: {
         profilePage: {
@@ -33,24 +39,25 @@ type AppProps = {
             messages: MessageType[]
             dialogs: DialogType[]
         }
+        sidebar: {
+            friends: FriendType[]
+        }
     }
 }
 
 function App(props: AppProps) {
     return (
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <Route path={'/news'} component={News}/>
-                <Route path={'/music'} component={Music}/>
-                <Route path={'/settings'} component={Settings}/>
-                <Route path={'/profile'}
-                       render={() => <Profile state={props.state.profilePage}/>}/>
-                <Route exact path={'/dialogs'}
-                       render={() => <Dialogs state={props.state.dialogsPage}/>}/>
-            </div>
-        </BrowserRouter>
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar state={props.state.sidebar}/>
+            <Route path={'/news'} component={News}/>
+            <Route path={'/music'} component={Music}/>
+            <Route path={'/settings'} component={Settings}/>
+            <Route path={'/profile'}
+                   render={() => <Profile state={props.state.profilePage}/>}/>
+            <Route exact path={'/dialogs'}
+                   render={() => <Dialogs state={props.state.dialogsPage}/>}/>
+        </div>
     );
 }
 
