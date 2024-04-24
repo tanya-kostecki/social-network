@@ -11,18 +11,22 @@ type PostsProps = {
 export const Posts = (props: PostsProps) => {
     const newPostRef: LegacyRef<HTMLTextAreaElement> = useRef(null)
     const onClickHandler = () => {
-        const text = newPostRef.current?.value
-        // alert(text)
-        if (text) props.addPost(text.trim())
+        let text = newPostRef.current?.value
+        if (text) {
+            props.addPost(text.trim())
+            newPostRef.current!.value = ''
+        }
     }
 
-    console.log(props.posts)
+    const onChangeHanlder = () => {
+
+    }
 
     return (
         <div className={classes.posts}>
             <h3>My posts</h3>
             <div className={classes.newPost}>
-                <textarea placeholder={'Add new post'} ref={newPostRef}/>
+                <textarea placeholder={'Add new post'} ref={newPostRef} value={''} onChange={onChangeHanlder}/>
                 <button className={classes.button} onClick={onClickHandler}>Add</button>
             </div>
             <div className={classes.postsBlock}>

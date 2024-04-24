@@ -30,7 +30,7 @@ export type FriendType = {
     avatar: string
 }
 
-type AppProps = {
+type AppPropsType = {
     state: {
         profilePage: {
             posts: PostType[]
@@ -46,7 +46,7 @@ type AppProps = {
     addPost: (postMessage: string) => void
 }
 
-function App(props: AppProps) {
+function App(props: AppPropsType) {
     return (
         <div className="app-wrapper">
             <Header/>
