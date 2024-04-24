@@ -10,7 +10,7 @@ import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
 
 export type PostType = {
-    id: number
+    id: string
     message: string
     likesCount: number
 }
@@ -20,7 +20,7 @@ export type DialogType = {
     name: string
 }
 export type MessageType = {
-    id: number
+    id: string
     message: string
 }
 
@@ -34,16 +34,21 @@ type AppPropsType = {
     state: {
         profilePage: {
             posts: PostType[]
+            newPostText: string
         }
         dialogsPage: {
             messages: MessageType[]
             dialogs: DialogType[]
+            newMessageText: string
         }
         sidebar: {
             friends: FriendType[]
         }
     },
-    addPost: (postMessage: string) => void
+    addPost: () => void
+    updatePostText: (newPostText: string) => void
+    addMessage: () => void
+    updateMessageText: (messageText: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -55,9 +60,11 @@ function App(props: AppPropsType) {
             <Route path={'/music'} component={Music}/>
             <Route path={'/settings'} component={Settings}/>
             <Route path={'/profile'}
-                   render={() => <Profile state={props.state.profilePage} addPost={props.addPost}/>}/>
+                   render={() => <Profile profilePage={props.state.profilePage} addPost={props.addPost}
+                                          updatePostText={props.updatePostText}/>}/>
             <Route exact path={'/dialogs'}
-                   render={() => <Dialogs state={props.state.dialogsPage}/>}/>
+                   render={() => <Dialogs dialogsPage={props.state.dialogsPage} addMessage={props.addMessage}
+                                          updateMessageText={props.updateMessageText}/>}/>
         </div>
     );
 }

@@ -6,29 +6,36 @@ import {DialogType, MessageType} from "../../App";
 
 
 type DialogsProps = {
-    state: {
+    dialogsPage: {
         dialogs: DialogType[]
         messages: MessageType[]
+        newMessageText: string
     }
+    addMessage: () => void
+    updateMessageText: (messageText: string) => void
 }
 export const Dialogs = (props: DialogsProps) => {
     const sendMessageRef: LegacyRef<HTMLTextAreaElement> = useRef(null)
     const onClickHandler = () => {
-        const message = sendMessageRef.current?.value
-        alert(message)
+        props.addMessage()
+    }
+
+    const onChangeHandler = () => {
+        let text = sendMessageRef.current?.value
+        props.updateMessageText(text!)
     }
     return (
         <main className='content'>
             Dialogs
             <div className={classes.dialogsContent}>
                 <section className={classes.dialogs}>
-                    {props.state.dialogs.map((dialog) => <DialogItem key={dialog.id} className={classes.dialog} id={dialog.id}
+                    {props.dialogsPage.dialogs.map((dialog) => <DialogItem key={dialog.id} className={classes.dialog} id={dialog.id}
                                                                name={dialog.name}/>)}
                 </section>
 
                 <section className={classes.messages}>
-                    {props.state.messages.map(m => <Message key={m.id} message={m.message}/>)}
-                    <textarea ref={sendMessageRef}/>
+                    {props.dialogsPage.messages.map(m => <Message key={m.id} message={m.message}/>)}
+                    <textarea ref={sendMessageRef} value={props.dialogsPage.newMessageText} onChange={onChangeHandler}/>
                     <button onClick={onClickHandler}>Send</button>
                 </section>
             </div>
