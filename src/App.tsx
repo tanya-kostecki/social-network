@@ -42,7 +42,8 @@ type AppProps = {
         sidebar: {
             friends: FriendType[]
         }
-    }
+    },
+    addPost: (postMessage: string) => void
 }
 
 function App(props: AppProps) {
@@ -54,7 +55,7 @@ function App(props: AppProps) {
             <Route path={'/music'} component={Music}/>
             <Route path={'/settings'} component={Settings}/>
             <Route path={'/profile'}
-                   render={() => <Profile state={props.state.profilePage}/>}/>
+                   render={() => <Profile state={props.state.profilePage} addPost={props.addPost}/>}/>
             <Route exact path={'/dialogs'}
                    render={() => <Dialogs state={props.state.dialogsPage}/>}/>
         </div>

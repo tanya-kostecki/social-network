@@ -6,7 +6,13 @@
 }
 
 .button {
-    display: block;
+    /*display: block;*/
+}
+
+.newPost {
+    display: flex;
+    align-items: center;
+    gap: 10px
 }
 
 .postsBlock {

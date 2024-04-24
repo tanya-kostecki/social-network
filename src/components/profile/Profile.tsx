@@ -7,12 +7,13 @@ type ProfileProps = {
     state: {
         posts: PostType[]
     }
+    addPost: (postMessage: string) => void
 }
 export const Profile = (props: ProfileProps) => {
     return (
         <main className='content'>
             <ProfileInfo/>
-            <Posts posts={props.state.posts}/>
+            <Posts posts={props.state.posts} addPost={props.addPost}/>
         </main>
     );
 };
