@@ -22,10 +22,6 @@ export type StoreType = {
     getState: () => StateType
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
-    addPost: () => void
-    updatePostText: (newPostText: string) => void
-    addMessage: () => void
-    updateMessageText: (messageText: string) => void
 }
 
 export type AddPostActionType = {
@@ -50,7 +46,6 @@ export type ActionsType =
 
 export const store: StoreType = {
     _state: {
-
         profilePage: {
             posts: [
                 {id: '1', message: 'Hi', likesCount: 0},
@@ -65,7 +60,7 @@ export const store: StoreType = {
                 {id: '2', message: 'Hello'},
                 {id: '3', message: 'How are you?'}
             ],
-            newMessageText: '', //
+            newMessageText: '',
             dialogs: [
                 {id: '1', name: 'Dimych'},
                 {id: '2', name: 'Andrey'},
@@ -104,33 +99,6 @@ export const store: StoreType = {
     },
     subscribe(observer: () => void) {
         this._callSubscriber = observer
-    },
-    addPost() {
-        const newPost = {
-            id: v1(),
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
-        this._callSubscriber()
-    },
-    updatePostText(newPostText: string) {
-        this._state.profilePage.newPostText = newPostText
-        this._callSubscriber()
-    },
-    addMessage() {
-        const newMessage = {
-            id: v1(),
-            message: this._state.dialogsPage.newMessageText
-        }
-        this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.newMessageText = ''
-        this._callSubscriber()
-    },
-    updateMessageText(messageText: string) {
-        this._state.dialogsPage.newMessageText = messageText
-        this._callSubscriber()
     },
     dispatch(action: ActionsType) {
         switch (action.type) {
@@ -177,16 +145,29 @@ export const store: StoreType = {
 }
 
 //action creators
-export const addPostAC = () => {
+export const addPostAC = (): AddPostActionType => {
     return {
         type: 'ADD-POST'
     } as const
 }
 
-export const updateNewPostTextAC = (text: string) => {
+export const updateNewPostTextAC = (text: string): UpdatePostTextActionType => {
     return {
         type: 'UPDATE-POST-TEXT',
         newPostText: text
+    } as const
+}
+
+export const addMessageAC = (): AddMessageActionType => {
+    return {
+        type: 'ADD-MESSAGE',
+    } as const
+}
+
+export const updateMessageAC = (messageText: string): UpdateMessageTextActionType => {
+    return {
+        type: 'UPDATE-MESSAGE',
+        messageText
     } as const
 }
 

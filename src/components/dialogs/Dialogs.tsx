@@ -1,9 +1,9 @@
-import React, {LegacyRef, useRef} from 'react';
+import React, {ChangeEvent} from 'react';
 import classes from './Dialogs.module.css'
 import {DialogItem} from './dialog-item/DialogItem';
 import {Message} from "./message/Message";
 import {DialogType, MessageType} from "../../App";
-import {ActionsType} from "../../redux/state";
+import {ActionsType, addMessageAC, updateMessageAC} from "../../redux/state";
 
 
 type DialogsProps = {
@@ -15,14 +15,12 @@ type DialogsProps = {
     dispatch: (action: ActionsType) => void
 }
 export const Dialogs = (props: DialogsProps) => {
-    const sendMessageRef: LegacyRef<HTMLTextAreaElement> = useRef(null)
     const onClickHandler = () => {
-        props.dispatch({ type: 'ADD-MESSAGE'})
+        props.dispatch(addMessageAC())
     }
 
-    const onChangeHandler = () => {
-        let text = sendMessageRef.current?.value
-        props.dispatch({ type: 'UPDATE-MESSAGE', messageText: text!})
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(updateMessageAC(e.currentTarget.value!))
     }
     return (
         <main className='content'>
@@ -35,7 +33,7 @@ export const Dialogs = (props: DialogsProps) => {
 
                 <section className={classes.messages}>
                     {props.dialogsPage.messages.map(m => <Message key={m.id} message={m.message}/>)}
-                    <textarea ref={sendMessageRef} value={props.dialogsPage.newMessageText} onChange={onChangeHandler}/>
+                    <textarea value={props.dialogsPage.newMessageText} onChange={onChangeHandler}/>
                     <button onClick={onClickHandler}>Send</button>
                 </section>
             </div>

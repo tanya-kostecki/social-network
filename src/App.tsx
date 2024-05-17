@@ -8,7 +8,7 @@ import {Route} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
-import {ActionsType, StateType} from "./redux/state";
+import {ActionsType, StateType, store, StoreType} from "./redux/state";
 
 export type PostType = {
     id: string
@@ -29,22 +29,22 @@ export type FriendType = {
     avatar: string
 }
 type AppPropsType = {
-    state: StateType
-    dispatch: (action: ActionsType) => void
+    store: StoreType
 }
 
 function App(props: AppPropsType) {
+    const state = props.store.getState()
     return (
         <div className="app-wrapper">
             <Header/>
-            <Navbar state={props.state.sidebar}/>
+            <Navbar state={state.sidebar}/>
             <Route path={'/news'} component={News}/>
             <Route path={'/music'} component={Music}/>
             <Route path={'/settings'} component={Settings}/>
             <Route path={'/profile'}
-                   render={() => <Profile profilePage={props.state.profilePage} dispatch={props.dispatch}/>}/>
+                   render={() => <Profile profilePage={state.profilePage} dispatch={props.store.dispatch.bind(store)}/>}/>
             <Route path={'/dialogs'}
-                   render={() => <Dialogs dialogsPage={props.state.dialogsPage} dispatch={props.dispatch}/>}/>
+                   render={() => <Dialogs dialogsPage={state.dialogsPage} dispatch={props.store.dispatch.bind(store)}/>}/>
         </div>
     );
 }
