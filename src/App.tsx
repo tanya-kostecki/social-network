@@ -8,7 +8,7 @@ import {Route} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
-import {ActionsType, StateType, store, StoreType} from "./redux/state";
+import {store, StoreType} from "./redux/store";
 
 export type PostType = {
     id: string
@@ -28,6 +28,7 @@ export type FriendType = {
     name: string
     avatar: string
 }
+
 type AppPropsType = {
     store: StoreType
 }

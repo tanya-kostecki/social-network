@@ -1,12 +1,5 @@
-import {ActionsType, AddMessageActionType, UpdateMessageTextActionType} from "./state";
+import {ActionsType, AddMessageActionType, UpdateMessageTextActionType} from "./store";
 import {v1} from "uuid";
-import {DialogType, MessageType} from "../App";
-
-type InitialStateType = {
-    messages: MessageType[],
-    newMessageText: string,
-    dialogs: DialogType[],
-}
 
 const initialState = {
     messages: [

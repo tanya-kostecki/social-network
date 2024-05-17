@@ -1,4 +1,4 @@
-import {ActionsType, StateType} from "./state";
+import {ActionsType} from "./store";
 
 const initialState = {
     friends: [

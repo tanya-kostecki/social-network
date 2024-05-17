@@ -1,11 +1,6 @@
-import {ActionsType, AddPostActionType, UpdatePostTextActionType} from "./state";
+import {ActionsType, AddPostActionType, UpdatePostTextActionType} from "./store";
 import {v1} from "uuid";
-import {PostType} from "../App";
 
-type InitialStateType = {
-     posts: PostType[]
-     newPostText: string;
-}
 const initialState = {
     posts: [
         {id: '1', message: 'Hi', likesCount: 0},

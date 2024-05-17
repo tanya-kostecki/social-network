@@ -1,5 +1,4 @@
 import {DialogType, FriendType, MessageType, PostType} from "../App";
-import {v1} from "uuid";
 import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
@@ -26,7 +25,6 @@ export type StoreType = {
     _callSubscriber: () => void
     subscribe: (observer: () => void) => void
 }
-
 export type AddPostActionType = {
     type: 'ADD-POST'
 }
@@ -111,7 +109,5 @@ export const store: StoreType = {
 
     }
 }
-
-
 //@ts-ignore
 window.store = store
