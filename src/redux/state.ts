@@ -1,5 +1,8 @@
 import {DialogType, FriendType, MessageType, PostType} from "../App";
 import {v1} from "uuid";
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
 
 export type StateType = {
     profilePage: {
@@ -27,14 +30,14 @@ export type StoreType = {
 export type AddPostActionType = {
     type: 'ADD-POST'
 }
-type UpdatePostTextActionType = {
+export type UpdatePostTextActionType = {
     type: 'UPDATE-POST-TEXT',
     newPostText: string
 }
-type AddMessageActionType = {
+export type AddMessageActionType = {
     type: 'ADD-MESSAGE'
 }
-type UpdateMessageTextActionType = {
+export type UpdateMessageTextActionType = {
     type: 'UPDATE-MESSAGE',
     messageText: string
 }
@@ -101,75 +104,14 @@ export const store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action: ActionsType) {
-        switch (action.type) {
-            case 'ADD-POST': {
-                const newPost = {
-                    id: v1(),
-                    message: this._state.profilePage.newPostText,
-                    likesCount: 0
-                }
-                this._state.profilePage.posts.push(newPost)
-                this._state.profilePage.newPostText = ''
-                this._callSubscriber()
+        profileReducer(this._state.profilePage, action)
+        dialogsReducer(this._state.dialogsPage, action)
+        sidebarReducer(this._state.sidebar, action)
+        this._callSubscriber()
 
-                break
-            }
-            case 'UPDATE-POST-TEXT': {
-                this._state.profilePage.newPostText = action.newPostText
-                this._callSubscriber()
-
-                break
-            }
-            case 'ADD-MESSAGE': {
-                const newMessage = {
-                    id: v1(),
-                    message: this._state.dialogsPage.newMessageText
-                }
-                this._state.dialogsPage.messages.push(newMessage)
-                this._state.dialogsPage.newMessageText = ''
-                this._callSubscriber()
-
-                break
-            }
-            case 'UPDATE-MESSAGE': {
-                this._state.dialogsPage.newMessageText = action.messageText
-                this._callSubscriber()
-
-                break
-            }
-            default:
-                return this._state
-
-        }
     }
 }
 
-//action creators
-export const addPostAC = (): AddPostActionType => {
-    return {
-        type: 'ADD-POST'
-    } as const
-}
-
-export const updateNewPostTextAC = (text: string): UpdatePostTextActionType => {
-    return {
-        type: 'UPDATE-POST-TEXT',
-        newPostText: text
-    } as const
-}
-
-export const addMessageAC = (): AddMessageActionType => {
-    return {
-        type: 'ADD-MESSAGE',
-    } as const
-}
-
-export const updateMessageAC = (messageText: string): UpdateMessageTextActionType => {
-    return {
-        type: 'UPDATE-MESSAGE',
-        messageText
-    } as const
-}
 
 //@ts-ignore
 window.store = store
