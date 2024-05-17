@@ -1,7 +1,50 @@
 import {DialogType, FriendType, MessageType, PostType} from "../App";
 import {v1} from "uuid";
 
-export const store = {
+export type StateType = {
+    profilePage: {
+        posts: PostType[]
+        newPostText: string
+    },
+    dialogsPage: {
+        dialogs: DialogType[]
+        messages: MessageType[]
+        newMessageText: string
+    },
+    sidebar: {
+        friends: FriendType[]
+    }
+}
+
+export type StoreType = {
+    _state: StateType
+    dispatch: (action: ActionsType) => void
+    getState: () => StateType
+    _callSubscriber: () => void
+    subscribe: (observer: () => void) => void
+    addPost: () => void
+    updatePostText: (newPostText: string) => void
+    addMessage: () => void
+    updateMessageText: (messageText: string) => void
+}
+
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+type UpdatePostTextActionType = {
+    type: 'UPDATE-POST-TEXT',
+    newPostText: string
+}
+type AddMessageActionType = {
+    type: 'ADD-MESSAGE'
+}
+type UpdateMessageTextActionType = {
+    type: 'UPDATE-MESSAGE',
+    messageText: string
+}
+export type ActionsType = AddPostActionType | UpdatePostTextActionType | AddMessageActionType | UpdateMessageTextActionType
+
+export const store: StoreType = {
     _state: {
 
         profilePage: {
@@ -55,6 +98,9 @@ export const store = {
     _callSubscriber () {
         console.log('state is changed')
     },
+    subscribe (observer: () => void) {
+        this._callSubscriber = observer
+    },
     addPost ()  {
         const newPost = {
             id: v1(),
@@ -82,8 +128,47 @@ export const store = {
         this._state.dialogsPage.newMessageText = messageText
         this._callSubscriber()
     },
-    subscribe (observer: () => void) {
-        this._callSubscriber = observer
+
+    dispatch (action: ActionsType) {
+        switch (action.type) {
+            case 'ADD-POST': {
+                const newPost = {
+                    id: v1(),
+                    message: this._state.profilePage.newPostText,
+                    likesCount: 0
+                }
+                this._state.profilePage.posts.push(newPost)
+                this._state.profilePage.newPostText = ''
+                this._callSubscriber()
+
+                break
+            }
+            case 'UPDATE-POST-TEXT': {
+                this._state.profilePage.newPostText = action.newPostText
+                this._callSubscriber()
+
+                break
+            }
+            case 'ADD-MESSAGE': {
+                const newMessage = {
+                    id: v1(),
+                    message: this._state.dialogsPage.newMessageText
+                }
+                this._state.dialogsPage.messages.push(newMessage)
+                this._state.dialogsPage.newMessageText = ''
+                this._callSubscriber()
+
+                break
+            }
+            case 'UPDATE-MESSAGE': {
+                this._state.dialogsPage.newMessageText = action.messageText
+                this._callSubscriber()
+
+                break
+            }
+            default: return this._state
+
+        }
     }
 }
 

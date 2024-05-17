@@ -8,10 +8,15 @@
 }
 
 .dialog {
-
+    color: black;
+    text-decoration: none;
 }
 
-.dialogs .active {
+/*.dialogs .active {*/
+/*    color: darkviolet;*/
+/*}*/
+
+.active {
     color: darkviolet;
 }
 

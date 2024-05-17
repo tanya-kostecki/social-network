@@ -3,6 +3,7 @@ import classes from './Dialogs.module.css'
 import {DialogItem} from './dialog-item/DialogItem';
 import {Message} from "./message/Message";
 import {DialogType, MessageType} from "../../App";
+import {ActionsType} from "../../redux/state";
 
 
 type DialogsProps = {
@@ -11,25 +12,24 @@ type DialogsProps = {
         messages: MessageType[]
         newMessageText: string
     }
-    addMessage: () => void
-    updateMessageText: (messageText: string) => void
+    dispatch: (action: ActionsType) => void
 }
 export const Dialogs = (props: DialogsProps) => {
     const sendMessageRef: LegacyRef<HTMLTextAreaElement> = useRef(null)
     const onClickHandler = () => {
-        props.addMessage()
+        props.dispatch({ type: 'ADD-MESSAGE'})
     }
 
     const onChangeHandler = () => {
         let text = sendMessageRef.current?.value
-        props.updateMessageText(text!)
+        props.dispatch({ type: 'UPDATE-MESSAGE', messageText: text!})
     }
     return (
         <main className='content'>
             Dialogs
             <div className={classes.dialogsContent}>
                 <section className={classes.dialogs}>
-                    {props.dialogsPage.dialogs.map((dialog) => <DialogItem key={dialog.id} className={classes.dialog} id={dialog.id}
+                    {props.dialogsPage.dialogs.map((dialog) => <DialogItem key={dialog.id} id={dialog.id}
                                                                name={dialog.name}/>)}
                 </section>
 
