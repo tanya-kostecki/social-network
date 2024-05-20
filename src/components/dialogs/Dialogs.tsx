@@ -3,9 +3,6 @@ import classes from './Dialogs.module.css'
 import {DialogItem} from './dialog-item/DialogItem';
 import {Message} from "./message/Message";
 import {DialogType, MessageType} from "../../App";
-import {ActionsType} from "../../redux/store";
-import {addMessageAC, updateMessageAC} from "../../redux/dialogs-reducer";
-
 
 type DialogsProps = {
     dialogsPage: {
@@ -13,15 +10,17 @@ type DialogsProps = {
         messages: MessageType[]
         newMessageText: string
     }
-    dispatch: (action: ActionsType) => void
+    addMessage: () => void
+    updateMessage: (value: string) => void
+
 }
 export const Dialogs = (props: DialogsProps) => {
-    const onClickHandler = () => {
-        props.dispatch(addMessageAC())
+    const addMessageHandler = () => {
+        props.addMessage()
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateMessageAC(e.currentTarget.value!))
+    const updateMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateMessage(e.currentTarget.value!)
     }
     return (
         <main className='content'>
@@ -34,8 +33,8 @@ export const Dialogs = (props: DialogsProps) => {
 
                 <section className={classes.messages}>
                     {props.dialogsPage.messages.map(m => <Message key={m.id} message={m.message}/>)}
-                    <textarea value={props.dialogsPage.newMessageText} onChange={onChangeHandler}/>
-                    <button onClick={onClickHandler}>Send</button>
+                    <textarea value={props.dialogsPage.newMessageText} onChange={updateMessageHandler}/>
+                    <button onClick={addMessageHandler}>Send</button>
                 </section>
             </div>
         </main>
