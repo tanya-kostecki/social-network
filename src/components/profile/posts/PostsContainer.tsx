@@ -34,25 +34,3 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
 }
 
 export const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)
-
-// export const PostsContainer = () => {
-//
-//     return (
-//         <StoreContext.Consumer>
-//             {store => {
-//                 const addPostHandler = () => {
-//                     store!.dispatch(addPostAC())
-//                 }
-//
-//                 const updateNewPostHandler = (value: string) => {
-//                     store!.dispatch(updateNewPostTextAC(value))
-//                 }
-//
-//                 return <Posts posts={store!.getState().profilePage.posts}
-//                        newPostText={store!.getState().profilePage.newPostText} updateNewPost={updateNewPostHandler}
-//                        addPost={addPostHandler}/>
-//                 }}
-//         </StoreContext.Consumer>
-//
-//     );
-// };
