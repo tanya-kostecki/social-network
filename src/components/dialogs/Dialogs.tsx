@@ -2,7 +2,6 @@ import React, {ChangeEvent} from 'react';
 import classes from './Dialogs.module.css'
 import {DialogItem} from './dialog-item/DialogItem';
 import {Message} from "./message/Message";
-// import {DialogType, MessageType} from "../../App";
 import {DialogsPageType} from "../../types";
 
 type DialogsProps = {

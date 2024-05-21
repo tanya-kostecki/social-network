@@ -9,6 +9,7 @@ import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
 import {Store} from "redux";
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
+import {UsersContainer} from "./components/users/UsersContainer";
 
 export type PostType = {
     id: string
@@ -47,6 +48,7 @@ function App() {
                    render={() => <Profile />}/>
             <Route path={'/dialogs'}
                    render={() => <DialogsContainer />}/>
+            <Route path={'/users'} render={() => <UsersContainer/>}/>
         </div>
     );
 }

@@ -27,3 +27,18 @@ export type DialogsPageType = {
     messages: MessageType[]
     newMessageText: string
 }
+
+export type UserType = {
+    id: string
+    fullName: string
+    followed: boolean
+    status: string,
+    avatar: string,
+    location: {
+        city: string
+        country: string
+    }
+}
+export type UsersPageType = {
+    users: UserType[]
+}

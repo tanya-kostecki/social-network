@@ -1,0 +1,13 @@
+.userBlock {
+    display: flex;
+    flex-direction: column;
+}
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.button {
+    width: 80px;
+}
