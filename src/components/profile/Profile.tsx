@@ -11,13 +11,15 @@ type ProfileProps = {
     // dispatch: (action: ActionsType) => void
     // addPost: () => void
     // updateNewPost: (newText: string) => void
+
+
     store: Store
 }
-export const Profile = (props: ProfileProps) => {
+export const Profile = () => {
     return (
         <main className='content'>
             <ProfileInfo/>
-            <PostsContainer store={props.store}/>
+            <PostsContainer />
             {/*<Posts posts={props.profilePage.posts} dispatch={props.dispatch}*/}
             {/*       newPostText={props.profilePage.newPostText}/>*/}
             {/*<Posts posts={props.profilePage.posts} addPost={props.addPost} updateNewPost={props.updateNewPost}*/}

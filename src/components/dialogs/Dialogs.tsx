@@ -2,14 +2,11 @@ import React, {ChangeEvent} from 'react';
 import classes from './Dialogs.module.css'
 import {DialogItem} from './dialog-item/DialogItem';
 import {Message} from "./message/Message";
-import {DialogType, MessageType} from "../../App";
+// import {DialogType, MessageType} from "../../App";
+import {DialogsPageType} from "../../types";
 
 type DialogsProps = {
-    dialogsPage: {
-        dialogs: DialogType[]
-        messages: MessageType[]
-        newMessageText: string
-    }
+    dialogsPage: DialogsPageType
     addMessage: () => void
     updateMessage: (value: string) => void
 
@@ -28,12 +25,13 @@ export const Dialogs = (props: DialogsProps) => {
             <div className={classes.dialogsContent}>
                 <section className={classes.dialogs}>
                     {props.dialogsPage.dialogs.map((dialog) => <DialogItem key={dialog.id} id={dialog.id}
-                                                               name={dialog.name}/>)}
+                                                                           name={dialog.name}/>)}
                 </section>
 
                 <section className={classes.messages}>
                     {props.dialogsPage.messages.map(m => <Message key={m.id} message={m.message}/>)}
-                    <textarea value={props.dialogsPage.newMessageText} onChange={updateMessageHandler}/>
+                    <textarea value={props.dialogsPage.newMessageText} onChange={updateMessageHandler}
+                              placeholder={'Enter your message'}/>
                     <button onClick={addMessageHandler}>Send</button>
                 </section>
             </div>

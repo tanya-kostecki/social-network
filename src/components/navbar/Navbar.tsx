@@ -8,7 +8,7 @@ type NavbarProps = {
         friends: FriendType[]
     }
 }
-export const Navbar = (props: NavbarProps) => {
+export const Navbar = () => {
     return (
         <nav className={classes.nav}>
             <ul>
@@ -23,19 +23,19 @@ export const Navbar = (props: NavbarProps) => {
                                                       activeClassName={classes.active}>Settings</NavLink></li>
             </ul>
 
-            <div className={classes.friendsBlock}> Friends
-                <div className={classes.friends}>
-                    {props.state.friends.map(friend => (
-                        <div key={friend.id}>
-                            <img className={classes.img}
-                                 src={friend.avatar}
-                                 alt={'friend-avatar'}/>
+            {/*<div className={classes.friendsBlock}> Friends*/}
+            {/*    <div className={classes.friends}>*/}
+            {/*        {props.state.friends.map(friend => (*/}
+            {/*            <div key={friend.id}>*/}
+            {/*                <img className={classes.img}*/}
+            {/*                     src={friend.avatar}*/}
+            {/*                     alt={'friend-avatar'}/>*/}
 
-                            <span>{friend.name}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
+            {/*                <span>{friend.name}</span>*/}
+            {/*            </div>*/}
+            {/*        ))}*/}
+            {/*    </div>*/}
+            {/*</div>*/}
         </nav>
     );
 };
