@@ -7,7 +7,6 @@ import {ProfilePageType} from "../../../types";
 type PostsProps = {
     posts: PostType[]
     newPostText: string
-    // profilePage: ProfilePageType
     addPost: () => void
     updateNewPost: (newText: string) => void
 }

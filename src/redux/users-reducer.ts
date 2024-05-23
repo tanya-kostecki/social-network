@@ -1,32 +1,7 @@
 import {UsersPageType, UserType} from "../types";
 
 const initialState: UsersPageType = {
-    users: [
-        {
-            id: '1',
-            followed: false,
-            fullName: 'Dmitry',
-            status: 'I am a boss',
-            avatar: 'https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: '2',
-            followed: true,
-            fullName: 'Sasha',
-            status: 'I am a boss too',
-            avatar: 'https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
-            location: {city: 'Moscow', country: 'Russia'}
-        },
-        {
-            id: '3',
-            followed: false,
-            fullName: 'Anton',
-            status: 'I like football',
-            avatar: 'https://images.unsplash.com/photo-1608848461950-0fe51dfc41cb?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D',
-            location: {city: 'Kiev', country: 'Ukraine'}
-        },
-    ],
+    users: [],
 }
 type FollowActionType = ReturnType<typeof followAC>
 type UnfollowActionType = ReturnType<typeof unfollowAC>
@@ -48,9 +23,15 @@ export const usersReducer = (state = initialState, action: ActionsType): UsersPa
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
             }
         }
+        // case "SET-USERS": {
+        //     return {
+        //         ...state, users: [...state.users, ...action.users]
+        //     }
+        // }
         case "SET-USERS": {
             return {
-                ...state, users: [...state.users, ...action.users]
+                ...state,
+                users: action.users
             }
         }
         default:
