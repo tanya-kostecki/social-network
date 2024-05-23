@@ -7,9 +7,8 @@ import {Route} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
-import {Store} from "redux";
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
-import {UsersContainer} from "./components/users/UsersContainer";
+import UsersContainer from "./components/users/UsersContainer";
 
 export type PostType = {
     id: string
@@ -30,13 +29,7 @@ export type FriendType = {
     avatar: string
 }
 
-type AppPropsType = {
-    store: Store
-}
-
 function App() {
-    // const state = props.store.getState()
-
     return (
         <div className="app-wrapper">
             <Header/>

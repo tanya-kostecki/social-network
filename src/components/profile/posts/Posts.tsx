@@ -2,7 +2,6 @@ import React, {ChangeEvent} from 'react';
 import classes from "./Posts.module.css";
 import {Post} from "./post/Post";
 import {PostType} from "../../../App";
-import {ProfilePageType} from "../../../types";
 
 type PostsProps = {
     posts: PostType[]

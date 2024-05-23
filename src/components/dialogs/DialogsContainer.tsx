@@ -1,4 +1,3 @@
-import React from 'react';
 import {addMessageAC, updateMessageAC} from "../../redux/dialogs-reducer";
 import {Dispatch} from "redux";
 import {Dialogs} from "./Dialogs";
