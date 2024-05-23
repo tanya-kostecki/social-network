@@ -11,3 +11,15 @@
 .button {
     width: 80px;
 }
+
+.selectedPage {
+    font-weight: bold;
+    color: yellow;
+    border: 1px solid black;
+    padding: 2px;
+}
+
+.page {
+    border: 1px solid black;
+    padding: 2px;
+}
