@@ -21,6 +21,8 @@ export const Navbar = () => {
                 </li>
                 <li className={classes.item}><NavLink to={'/settings'}
                                                       activeClassName={classes.active}>Settings</NavLink></li>
+                <li className={classes.item}><NavLink to={'/users'}
+                                                      activeClassName={classes.active}>Users</NavLink></li>
             </ul>
 
             {/*<div className={classes.friendsBlock}> Friends*/}
