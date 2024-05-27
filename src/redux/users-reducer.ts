@@ -7,12 +7,12 @@ const initialState: UsersPageType = {
     currentPage: 1,
     isFetching: false
 }
-type FollowActionType = ReturnType<typeof followAC>
-type UnfollowActionType = ReturnType<typeof unfollowAC>
-type SetUsersActionType = ReturnType<typeof setUsersAC>
-type SetCurrentPageActionType = ReturnType<typeof setCurrentPageAC>
-type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>
-type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetchingAC>
+type FollowActionType = ReturnType<typeof follow>
+type UnfollowActionType = ReturnType<typeof unfollow>
+type SetUsersActionType = ReturnType<typeof setUsers>
+type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>
+type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
+type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
 
 export type ActionsType =
     FollowActionType
@@ -57,39 +57,39 @@ export const usersReducer = (state = initialState, action: ActionsType): UsersPa
 }
 
 //action creators
-export const followAC = (userId: string) => {
+export const follow = (userId: string) => {
     return {
         type: 'FOLLOW',
         userId,
     } as const
 }
 
-export const unfollowAC = (userId: string) => {
+export const unfollow = (userId: string) => {
     return {
         type: 'UNFOLLOW',
         userId
     } as const
 }
 
-export const setUsersAC = (users: UserType[]) => {
+export const setUsers = (users: UserType[]) => {
     return {
         type: 'SET-USERS',
         users
     } as const
 }
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: 'SET-CURRENT-PAGE',
         currentPage
     } as const
 }
-export const setTotalUsersCountAC = (usersCount: number) => {
+export const setTotalUsersCount = (usersCount: number) => {
     return {
         type: 'SET-TOTAL-USERS-COUNT',
         usersCount
     } as const
 }
-export const toggleIsFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
     return {
         type: 'TOGGLE-IS-FETCHING',
         isFetching

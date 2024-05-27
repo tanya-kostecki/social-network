@@ -30,13 +30,13 @@ export const profileReducer = (state = initialState, action: ActionsType): Profi
 }
 
 //action creators
-export const addPostAC = (): AddPostActionType => {
+export const addPost = (): AddPostActionType => {
     return {
         type: 'ADD-POST'
     } as const
 }
 
-export const updateNewPostTextAC = (text: string): UpdatePostTextActionType => {
+export const updateNewPostText = (text: string): UpdatePostTextActionType => {
     return {
         type: 'UPDATE-POST-TEXT',
         newPostText: text

@@ -7,7 +7,7 @@ type PostsProps = {
     posts: PostType[]
     newPostText: string
     addPost: () => void
-    updateNewPost: (newText: string) => void
+    updateNewPostText: (newText: string) => void
 }
 
 export const Posts = (props: PostsProps) => {
@@ -16,7 +16,7 @@ export const Posts = (props: PostsProps) => {
     }
 
     const updateNewPostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPost(e.currentTarget.value!)
+        props.updateNewPostText(e.currentTarget.value!)
     }
 
     return (
