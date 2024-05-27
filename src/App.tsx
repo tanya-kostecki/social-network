@@ -8,7 +8,7 @@ import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
-import ProfileContainer from "./components/profile/ProfileContainer";
+import WithUrlDataProfileContainer from "./components/profile/ProfileContainer";
 
 export type PostType = {
     id: string
@@ -37,8 +37,8 @@ function App() {
             <Route path={'/news'} component={News}/>
             <Route path={'/music'} component={Music}/>
             <Route path={'/settings'} component={Settings}/>
-            <Route path={'/profile'}
-                   render={() => <ProfileContainer />}/>
+            <Route path={'/profile/:userId?'}
+                   render={() => <WithUrlDataProfileContainer />}/>
             <Route path={'/dialogs'}
                    render={() => <DialogsContainer />}/>
             <Route path={'/users'} render={() => <UsersContainer/>}/>
