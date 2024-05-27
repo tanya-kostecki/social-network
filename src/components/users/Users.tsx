@@ -14,15 +14,22 @@ type Props = {
 };
 export const Users = (props: Props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-    let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
+    // let pages = []
+    // for (let i = 1; i <= pagesCount; i++) {
+    //     pages.push(i)
+    // }
+    let nextPage = props.currentPage + 1
+    let prevPage = props.currentPage - 1
     return (
         <main className='content'>
+            {/*<div>*/}
+            {/*    {pages.map(p => <span key={p} onClick={() => props.onPageChange(p)}*/}
+            {/*                          className={props.currentPage === p ? styles.selectedPage : styles.page}>{p}</span>)}*/}
+            {/*</div>*/}
             <div>
-                {pages.map(p => <span key={p} onClick={() => props.onPageChange(p)}
-                                      className={props.currentPage === p ? styles.selectedPage : styles.page}>{p}</span>)}
+                {prevPage >= 1 && <button onClick={() => props.onPageChange(prevPage)}>Назад</button>}
+                <span className={styles.selectedPage}>{props.currentPage}</span>
+                {nextPage <= pagesCount && <button onClick={() => props.onPageChange(nextPage)}>Вперед</button>}
             </div>
             {props.users.map(u => (
                 <div key={u.id} className={styles.userBlock}>

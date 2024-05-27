@@ -2,7 +2,7 @@ import {UsersPageType, UserType} from "../types";
 
 const initialState: UsersPageType = {
     users: [],
-    pageSize: 100,
+    pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false
