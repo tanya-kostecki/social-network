@@ -1,10 +1,9 @@
 import React from "react";
 import {Header} from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {setAuthUserData} from "../../redux/auth-reducer";
-import {getAuthMe} from "../../api/api";
+import {usersApi} from "../../api/api";
 
 type UserDataType = {
     id: number
@@ -21,7 +20,7 @@ type HeaderContainerProps = {
 
 export class HeaderContainer extends React.Component<HeaderContainerProps> {
     componentDidMount() {
-        getAuthMe()
+        usersApi.getAuthMe()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, email, login} = data.data;

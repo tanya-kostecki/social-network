@@ -3,8 +3,7 @@ import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {UserType} from "../../types";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {followUser, unfollowUser} from "../../api/api";
+import {usersApi} from "../../api/api";
 
 type Props = {
     users: UserType[]
@@ -42,7 +41,7 @@ export const Users = (props: Props) => {
                     </NavLink>
                     {u.followed ?
                         <button onClick={() => {
-                            unfollowUser(u.id).then(data => {
+                            usersApi.unfollowUser(u.id).then(data => {
                                 if (data.resultCode === 0) {
                                     props.unfollow(u.id)
                                 }
@@ -50,7 +49,7 @@ export const Users = (props: Props) => {
                         }}
                                 className={styles.button}>{'Unfollow'}</button> :
                         <button onClick={() => {
-                            followUser(u.id).then(data => {
+                            usersApi.followUser(u.id).then(data => {
                                 if (data.resultCode === 0) {
                                     props.follow(u.id)
                                 }
