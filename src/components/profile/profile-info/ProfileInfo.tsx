@@ -25,7 +25,6 @@ export const ProfileInfo = ({ profile }: ProfileInfoProps) => {
                     <span className={classes.descriptionSpan}>{profile.fullName}</span>
                     <span className={classes.descriptionSpan}>{profile.lookingForAJobDescription}</span>
                     <span className={classes.descriptionSpan}>{profile.contacts.facebook}</span>
-                    <span className={classes.descriptionSpan}>Austria</span>
                 </div>
             </div>
         </>

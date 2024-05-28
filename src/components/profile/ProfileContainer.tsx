@@ -18,7 +18,7 @@ type PathParamsType = {
 
 type ProfileContainerProps = ProfilePropsType & RouteComponentProps<PathParamsType>;
 
-export class ProfileContainer extends React.Component <ProfileContainerProps, ProfileType> {
+export class ProfileContainer extends React.Component <ProfileContainerProps> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) userId = '2'
