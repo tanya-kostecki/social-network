@@ -51,7 +51,7 @@ export type DialogsPageType = {
 }
 
 export type UserType = {
-    id: string
+    id: number
     name: string
     followed: boolean
     status: string,

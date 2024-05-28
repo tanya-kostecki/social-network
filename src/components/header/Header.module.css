@@ -1,8 +1,22 @@
 .header {
     grid-area: header;
-    background-color: aquamarine;
+    background-color: darkblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .header img {
     width: 40px;
+}
+
+.header a {
+    color: white;
+    text-decoration: none;
+}
+
+.header span {
+    color: white;
 }

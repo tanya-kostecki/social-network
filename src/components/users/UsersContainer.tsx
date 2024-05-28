@@ -24,8 +24,8 @@ type MapStateToPropsType = {
 
 type UsersProps = {
     users: UserType[]
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     setUsers: (users: UserType[]) => void
     pageSize: number
     totalUsersCount: number

@@ -57,14 +57,14 @@ export const usersReducer = (state = initialState, action: ActionsType): UsersPa
 }
 
 //action creators
-export const follow = (userId: string) => {
+export const follow = (userId: number) => {
     return {
         type: 'FOLLOW',
         userId,
     } as const
 }
 
-export const unfollow = (userId: string) => {
+export const unfollow = (userId: number) => {
     return {
         type: 'UNFOLLOW',
         userId

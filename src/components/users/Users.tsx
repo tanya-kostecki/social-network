@@ -6,8 +6,8 @@ import {NavLink} from "react-router-dom";
 
 type Props = {
     users: UserType[]
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     pageSize: number
     totalUsersCount: number
     currentPage: number
