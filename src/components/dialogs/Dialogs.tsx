@@ -3,9 +3,8 @@ import classes from './Dialogs.module.css'
 import {DialogItem} from './dialog-item/DialogItem';
 import {Message} from "./message/Message";
 import {DialogsPageType} from "../../types";
-import {Redirect} from "react-router-dom";
 
-type DialogsProps = {
+export type DialogsProps = {
     dialogsPage: DialogsPageType
     addMessage: () => void
     updateMessage: (value: string) => void
@@ -21,7 +20,6 @@ export const Dialogs = (props: DialogsProps) => {
         props.updateMessage(e.currentTarget.value!)
     }
 
-    if (!props.isAuth) return <Redirect to={'/login'}/>
     return (
         <main className='content'>
             Dialogs
