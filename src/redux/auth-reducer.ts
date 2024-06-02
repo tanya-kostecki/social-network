@@ -1,3 +1,6 @@
+import {usersApi} from "../api/api";
+import {Dispatch} from "redux";
+
 type InitialStateType = {
     id: number | null
     email: string | null
@@ -24,9 +27,21 @@ export const authReducer = (state = initialState, action: SetUserActionType): In
     }
 }
 
+//action creator
 export const setAuthUserData = (data: {id: number, email: string, login: string}) => {
     return {
         type: 'SET-AUTH-USER-DATA',
         data: data
     } as const
+}
+
+//thunk creator
+export const getAuthMe = () => (dispatch: Dispatch) => {
+    usersApi.setAuthMe()
+        .then(data => {
+            if (data.resultCode === 0) {
+                let {id, email, login} = data.data;
+                dispatch(setAuthUserData({id, email, login}));
+            }
+        })
 }

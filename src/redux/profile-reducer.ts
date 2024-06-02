@@ -1,5 +1,7 @@
 import {v1} from "uuid";
 import {ProfilePageType, ProfileType} from "../types";
+import {usersApi} from "../api/api";
+import {Dispatch} from "redux";
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -85,4 +87,12 @@ export const setUserProfile = (profile: ProfileType): SetUserProfileActionType =
         type: 'SET-USER-PROFILE',
         profile
     } as const
+}
+
+//thunk creators
+export const getUserProfile= (userId: string) => (dispatch: Dispatch) => {
+    usersApi.getUserProfile(userId)
+        .then(data => {
+           dispatch(setUserProfile(data))
+        })
 }

@@ -21,7 +21,7 @@ export const usersApi = {
     getUserProfile: async (userId: string) => {
         return instance.get(`profile/${userId}`).then(res => res.data)
     },
-    getAuthMe: async () => {
+    setAuthMe: async () => {
         return instance.get('auth/me').then(res => res.data)
     }
 }

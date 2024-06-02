@@ -1,4 +1,8 @@
 import {UsersPageType, UserType} from "../types";
+import {usersApi} from "../api/api";
+import {Dispatch} from "redux";
+import {ThunkAction} from "redux-thunk";
+import {AppRootStateType} from "./redux-store";
 
 const initialState: UsersPageType = {
     users: [],
@@ -55,7 +59,10 @@ export const usersReducer = (state = initialState, action: ActionsType): UsersPa
             return {...state, isFetching: action.isFetching}
         }
         case "TOGGLE-FOLLOWING-PROGRESS": {
-            return {...state, isFollowingProgress: action.isFetching ? [...state.isFollowingProgress, action.id] : state.isFollowingProgress.filter(id => id !== action.id)}
+            return {
+                ...state,
+                isFollowingProgress: action.isFetching ? [...state.isFollowingProgress, action.id] : state.isFollowingProgress.filter(id => id !== action.id)
+            }
         }
         default:
             return state
@@ -109,3 +116,35 @@ export const toggleFollowingProgress = (isFetching: boolean, id: number) => {
         id
     } as const
 }
+
+//thunk creators
+export const getUsers = (currentPage: number, pageSize: number): ThunkAction<void, AppRootStateType, unknown, ActionsType> => (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true))
+    usersApi.getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+}
+
+export const unfollowUser = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(toggleFollowingProgress(true, userId))
+    usersApi.unfollowUser(userId).then(data => {
+        if (data.resultCode === 0) {
+            dispatch(unfollow(userId))
+        }
+        dispatch(toggleFollowingProgress(false, userId))
+    })
+}
+
+export const followUser = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(toggleFollowingProgress(true, userId))
+    usersApi.followUser(userId).then(data => {
+        if (data.resultCode === 0) {
+            dispatch(follow(userId))
+        }
+        dispatch(toggleFollowingProgress(false, userId))
+    })
+}
+
