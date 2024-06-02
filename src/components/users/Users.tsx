@@ -13,6 +13,8 @@ type Props = {
     totalUsersCount: number
     currentPage: number
     onPageChange: (page: number) => void
+    toggleFollowingProgress: (isFetching: boolean, id: number) => void
+    isFollowingProgress:  number[]
 };
 export const Users = (props: Props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -40,19 +42,23 @@ export const Users = (props: Props) => {
                              alt={'user-avatar'}/>
                     </NavLink>
                     {u.followed ?
-                        <button onClick={() => {
+                        <button disabled={props.isFollowingProgress.some(id => id === u.id)} onClick={() => {
+                            props.toggleFollowingProgress(true, u.id)
                             usersApi.unfollowUser(u.id).then(data => {
                                 if (data.resultCode === 0) {
                                     props.unfollow(u.id)
                                 }
+                                props.toggleFollowingProgress(false, u.id)
                             })
                         }}
                                 className={styles.button}>{'Unfollow'}</button> :
-                        <button onClick={() => {
+                        <button disabled={props.isFollowingProgress.some(id => id === u.id)} onClick={() => {
+                            props.toggleFollowingProgress(true, u.id)
                             usersApi.followUser(u.id).then(data => {
                                 if (data.resultCode === 0) {
                                     props.follow(u.id)
                                 }
+                                props.toggleFollowingProgress(false, u.id)
                             })
                         }}
                                 className={styles.button}>{'Follow'}</button>}
