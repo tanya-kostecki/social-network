@@ -5,9 +5,9 @@ import {Route} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
-import {DialogsContainer} from "./components/dialogs/DialogsContainer";
-import UsersContainer from "./components/users/UsersContainer";
-import WithUrlDataProfileContainer from "./components/profile/ProfileContainer";
+import {ComposedDialogsContainer} from "./components/dialogs/DialogsContainer";
+import {ComposedUserContainer} from "./components/users/UsersContainer";
+import {ComposedProfileContainer} from "./components/profile/ProfileContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 import {Login} from "./components/login/Login";
 
@@ -39,10 +39,10 @@ function App() {
             <Route path={'/music'} component={Music}/>
             <Route path={'/settings'} component={Settings}/>
             <Route path={'/profile/:userId?'}
-                   render={() => <WithUrlDataProfileContainer />}/>
+                   render={() => <ComposedProfileContainer />}/>
             <Route path={'/dialogs'}
-                   render={() => <DialogsContainer />}/>
-            <Route path={'/users'} render={() => <UsersContainer/>}/>
+                   render={() => <ComposedDialogsContainer />}/>
+            <Route path={'/users'} render={() => <ComposedUserContainer/>}/>
             <Route path={'/login'} render={() => <Login/>}/>
         </div>
     );
