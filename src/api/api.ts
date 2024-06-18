@@ -18,10 +18,23 @@ export const usersApi = {
     getUsers: async (currentPage: number, pageSize: number) => {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(res => res.data)
     },
-    getUserProfile: async (userId: string) => {
-        return instance.get(`profile/${userId}`).then(res => res.data)
-    },
+}
+
+export const authApi = {
     setAuthMe: async () => {
         return instance.get('auth/me').then(res => res.data)
     }
+}
+
+export const profileApi = {
+    getUserProfile: async (userId: string) => {
+        return instance.get(`profile/${userId}`).then(res => res.data)
+    },
+    getStatus: async (userId: string) => {
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus: async (status: string) => {
+        return instance.put(`profile/status`, {status: status})
+    },
+
 }

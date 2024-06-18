@@ -1,12 +1,15 @@
 import React from 'react';
 import classes from './ProfileInfo.module.css'
-import {ProfileType} from "../../../types";
+import {ProfileType, UserType} from "../../../types";
 import {Preloader} from "../../common/preloader/Preloader";
+import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoProps = {
     profile: ProfileType
+    status: string
+    updateProfileStatus: (status: string) => void
 }
-export const ProfileInfo = ({ profile }: ProfileInfoProps) => {
+export const ProfileInfo = ({ profile, status, updateProfileStatus }: ProfileInfoProps) => {
     return (
         !profile ? <Preloader/> :
         < >
@@ -25,6 +28,7 @@ export const ProfileInfo = ({ profile }: ProfileInfoProps) => {
                     <span className={classes.descriptionSpan}>{profile.fullName}</span>
                     <span className={classes.descriptionSpan}>{profile.lookingForAJobDescription}</span>
                     <span className={classes.descriptionSpan}>{profile.contacts.facebook}</span>
+                    <ProfileStatus status={status} updateProfileStatus={updateProfileStatus}/>
                 </div>
             </div>
         </>

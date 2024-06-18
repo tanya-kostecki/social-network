@@ -1,4 +1,4 @@
-import {usersApi} from "../api/api";
+import {authApi} from "../api/api";
 import {Dispatch} from "redux";
 
 type InitialStateType = {
@@ -37,7 +37,7 @@ export const setAuthUserData = (data: {id: number, email: string, login: string}
 
 //thunk creator
 export const getAuthMe = () => (dispatch: Dispatch) => {
-    usersApi.setAuthMe()
+    authApi.setAuthMe()
         .then(data => {
             if (data.resultCode === 0) {
                 let {id, email, login} = data.data;
