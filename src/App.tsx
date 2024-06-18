@@ -9,7 +9,7 @@ import {ComposedDialogsContainer} from "./components/dialogs/DialogsContainer";
 import {ComposedUserContainer} from "./components/users/UsersContainer";
 import {ComposedProfileContainer} from "./components/profile/ProfileContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
-import {Login} from "./components/login/Login";
+import LoginContainer from "./components/login/LoginContainer";
 
 export type PostType = {
     id: string
@@ -43,7 +43,8 @@ function App() {
             <Route path={'/dialogs'}
                    render={() => <ComposedDialogsContainer />}/>
             <Route path={'/users'} render={() => <ComposedUserContainer/>}/>
-            <Route path={'/login'} render={() => <Login/>}/>
+            {/*<Route path={'/login'} render={() => <Login/>}/>*/}
+            <Route path={'/login'} render={() => <LoginContainer/>}/>
         </div>
     );
 }
