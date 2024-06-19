@@ -1,6 +1,8 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Input} from "../common/form-controls/FormControls";
+import {required} from "../../utils/validators/validators";
 
 type FormDataType = {
     login: string
@@ -10,9 +12,12 @@ type FormDataType = {
 const LoginForm = (props: InjectedFormProps<FormDataType>) => {
     return (
         <form style={{display: 'flex', flexDirection: 'column', maxWidth: '200px'}} onSubmit={props.handleSubmit}>
-            <Field placeholder={'login'} type={'text'} component={'input'} name={'login'}/>
-            <Field placeholder={'password'} type={'password'} component={'input'} name={'password'}/>
-            <Field type={'checkbox'} component={'input'} name={'rememberMe'}/>Remember me
+            <Field placeholder={'login'} type={'text'} component={Input} name={'login'} validate={[required]}/>
+            <Field placeholder={'password'} type={'password'} component={Input} name={'password'}
+                   validate={[required]}/>
+            <div>
+                <Field type={'checkbox'} component={'input'} name={'rememberMe'}/>Remember me
+            </div>
             <button>Login</button>
         </form>
     )

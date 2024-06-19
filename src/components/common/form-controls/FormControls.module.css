@@ -2,8 +2,12 @@
     margin-bottom: 10px;
 }
 
-.error textarea {
-    border: 2px red solid;
+.error textarea, .error input {
+    border: 2px solid red;
+}
+
+.error input {
+    border: 2px solid red;
 }
 
 .errorSpan {
