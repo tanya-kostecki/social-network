@@ -48,7 +48,6 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
-    newMessageText: string
 }
 
 export type UserType = {

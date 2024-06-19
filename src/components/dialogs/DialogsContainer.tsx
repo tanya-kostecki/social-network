@@ -1,4 +1,4 @@
-import {addMessageAC, updateMessageAC} from "../../redux/dialogs-reducer";
+import {addMessageAC} from "../../redux/dialogs-reducer";
 import {compose, Dispatch} from "redux";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
@@ -11,8 +11,7 @@ type MapStateToPropsType =  {
     dialogsPage: DialogsPageType
 }
 type MapDispatchToPropsType = {
-    addMessage: () => void
-    updateMessage: (message: string) => void
+    addMessage: (message: string) => void
 }
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
@@ -22,17 +21,9 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
-        addMessage: () => {
-            dispatch(addMessageAC())
-        },
-        updateMessage: (message: string) => {
-            dispatch(updateMessageAC(message))
+        addMessage: (message: string) => {
+            dispatch(addMessageAC(message))
         }
     }
 }
 export const ComposedDialogsContainer = compose<ComponentType>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs)
-
-
-// const AuthRedirectComponent = withAuthRedirect(Dialogs)
-//
-// export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)

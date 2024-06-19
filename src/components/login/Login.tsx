@@ -25,6 +25,7 @@ type LoginProps = {
 };
 export const Login = ({isAuth}: LoginProps) => {
     if (isAuth) return <Redirect to="/profile"/>
+
     const onSubmit = (formData: FormDataType) => {
         console.log(formData)
     }
