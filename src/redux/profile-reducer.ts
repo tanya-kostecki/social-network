@@ -5,6 +5,7 @@ import {Dispatch} from "redux";
 
 export type AddPostActionType = {
     type: 'ADD-POST'
+    post: string
 }
 export type UpdatePostTextActionType = {
     type: 'UPDATE-POST-TEXT',
@@ -26,7 +27,6 @@ const initialState: ProfilePageType = {
         {id: '2', message: 'How are you?', likesCount: 2},
         {id: '3', message: 'What are you doing?', likesCount: 14},
     ],
-    newPostText: '',
     profile: {
         userId: 0,
         lookingForAJob: false,
@@ -55,13 +55,10 @@ export const profileReducer = (state = initialState, action: ActionsType): Profi
         case 'ADD-POST': {
             const newPost = {
                 id: v1(),
-                message: state.newPostText,
+                message: action.post,
                 likesCount: 0
             }
-            return {...state, posts: [...state.posts, newPost], newPostText: ''}
-        }
-        case 'UPDATE-POST-TEXT': {
-            return {...state, newPostText: action.newPostText}
+            return {...state, posts: [newPost, ...state.posts]}
         }
         case "SET-USER-PROFILE": {
             return {...state, profile: action.profile}
@@ -75,16 +72,10 @@ export const profileReducer = (state = initialState, action: ActionsType): Profi
 }
 
 //action creators
-export const addPost = (): AddPostActionType => {
+export const addPost = (post: string): AddPostActionType => {
     return {
-        type: 'ADD-POST'
-    } as const
-}
-
-export const updateNewPostText = (text: string): UpdatePostTextActionType => {
-    return {
-        type: 'UPDATE-POST-TEXT',
-        newPostText: text
+        type: 'ADD-POST',
+        post
     } as const
 }
 

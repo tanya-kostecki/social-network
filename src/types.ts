@@ -11,11 +11,11 @@ export type MessageType = {
     id: string
     message: string
 }
-export type FriendType = {
-    id: number
-    name: string
-    avatar: string
-}
+// export type FriendType = {
+//     id: number
+//     name: string
+//     avatar: string
+// }
 
 export type ProfileType = {
     userId: number
@@ -40,7 +40,6 @@ export type ProfileType = {
 
 export type ProfilePageType = {
     posts: PostType[]
-    newPostText: string
     profile: ProfileType
     status: string
 }
