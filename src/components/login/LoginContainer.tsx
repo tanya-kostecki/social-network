@@ -2,9 +2,6 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {Login} from "./Login";
-import {compose} from "redux";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-
 
 type LoginContainerProps = {
     isAuth: boolean
