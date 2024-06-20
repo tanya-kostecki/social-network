@@ -26,9 +26,6 @@ type TextareaProps = WrappedFieldProps & {
         error?: string
     }
 };
-export const Textarea = ({ input, meta }: TextareaProps) => {
-    return <FormControl meta={meta}><textarea {...input}/></FormControl>
-};
 
 type InputProps = WrappedFieldProps & {
     input: React.InputHTMLAttributes<HTMLInputElement>;
@@ -37,6 +34,13 @@ type InputProps = WrappedFieldProps & {
         error?: string
     }
 };
-export const Input = ({ input, meta }: InputProps) => {
-    return <FormControl meta={meta}><input {...input}/></FormControl>
+
+export const Textarea = (props: TextareaProps) => {
+    const { input, meta, ...restProps } = props;
+    return <FormControl meta={meta}><textarea {...input} {...restProps}/></FormControl>
+};
+
+export const Input = (props: InputProps) => {
+    const { input, meta, ...restProps } = props;
+    return <FormControl meta={meta}><input {...input} {...restProps}/></FormControl>
 };

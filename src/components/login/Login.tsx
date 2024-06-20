@@ -12,7 +12,7 @@ type FormDataType = {
 const LoginForm = (props: InjectedFormProps<FormDataType>) => {
     return (
         <form style={{display: 'flex', flexDirection: 'column', maxWidth: '200px'}} onSubmit={props.handleSubmit}>
-            <Field placeholder={'login'} type={'text'} component={Input} name={'login'} validate={[required]}/>
+            <Field placeholder={'login'} type={'email'} component={Input} name={'login'} validate={[required]}/>
             <Field placeholder={'password'} type={'password'} component={Input} name={'password'}
                    validate={[required]}/>
             <div>
@@ -27,12 +27,14 @@ const ReduxLoginForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
 type LoginProps = {
     isAuth: boolean
+    login:(email: string, password: string, rememberMe: boolean) => void
 };
-export const Login = ({isAuth}: LoginProps) => {
+export const Login = ({isAuth, login}: LoginProps) => {
     if (isAuth) return <Redirect to="/profile"/>
 
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+        login(formData.login, formData.password, formData.rememberMe)
+
     }
     return (
         <main className={'content'}>
