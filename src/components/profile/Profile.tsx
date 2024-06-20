@@ -2,7 +2,6 @@ import React from 'react';
 import {ProfileInfo} from "./profile-info/ProfileInfo";
 import {PostsContainer} from "./posts/PostsContainer";
 import {ProfileType} from "../../types";
-import {Redirect} from "react-router-dom";
 
 type ProfileProps = {
     profile: ProfileType

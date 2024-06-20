@@ -47,9 +47,4 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     status: state.profilePage.status,
 })
 
-// const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-//
-// const WithUrlDataProfileContainer = withRouter(AuthRedirectComponent)
-// export default connect(mapStateToProps, { getUserProfile })(WithUrlDataProfileContainer)
-
 export const ComposedProfileContainer= compose<ComponentType>(connect(mapStateToProps, { getUserProfile, getProfileStatus, updateProfileStatus }), withRouter, withAuthRedirect)(ProfileContainer)
