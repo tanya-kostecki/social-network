@@ -3,6 +3,7 @@ import {Redirect} from "react-router-dom";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../common/form-controls/FormControls";
 import {required} from "../../utils/validators/validators";
+import styles from '../common/form-controls/FormControls.module.css'
 
 type FormDataType = {
     login: string
@@ -18,6 +19,7 @@ const LoginForm = (props: InjectedFormProps<FormDataType>) => {
             <div>
                 <Field type={'checkbox'} component={'input'} name={'rememberMe'}/>Remember me
             </div>
+            {props.error && <span className={styles.formError}>{props.error}</span>}
             <button>Login</button>
         </form>
     )
