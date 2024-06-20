@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from "./components/navbar/Navbar";
-import {Route} from "react-router-dom";
+import {Route, withRouter} from "react-router-dom";
 import {News} from "./components/news/News";
 import {Music} from "./components/music/Music";
 import {Settings} from "./components/settings/Settings";
@@ -10,6 +10,11 @@ import {ComposedUserContainer} from "./components/users/UsersContainer";
 import {ComposedProfileContainer} from "./components/profile/ProfileContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 import LoginContainer from "./components/login/LoginContainer";
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {initializeApp} from "./redux/app-reducer";
+import {AppRootStateType} from "./redux/redux-store";
+import {Preloader} from "./components/common/preloader/Preloader";
 
 export type PostType = {
     id: string
@@ -30,23 +35,41 @@ export type FriendType = {
     avatar: string
 }
 
-function App() {
-    return (
-        <div className="app-wrapper">
-            <HeaderContainer/>
-            <Navbar/>
-            <Route path={'/news'} component={News}/>
-            <Route path={'/music'} component={Music}/>
-            <Route path={'/settings'} component={Settings}/>
-            <Route path={'/profile/:userId?'}
-                   render={() => <ComposedProfileContainer />}/>
-            <Route path={'/dialogs'}
-                   render={() => <ComposedDialogsContainer />}/>
-            <Route path={'/users'} render={() => <ComposedUserContainer/>}/>
-            {/*<Route path={'/login'} render={() => <Login/>}/>*/}
-            <Route path={'/login'} render={() => <LoginContainer/>}/>
-        </div>
-    );
+type AppProps = {
+    initializeApp: () => void
+    isInitialized: boolean
 }
 
-export default App;
+class App extends React.Component<AppProps> {
+    componentDidMount() {
+        this.props.initializeApp()
+    }
+
+    render() {
+        if (!this.props.isInitialized) return <Preloader/>
+
+        return (
+            <div className="app-wrapper">
+                <HeaderContainer/>
+                <Navbar/>
+                <Route path={'/news'} component={News}/>
+                <Route path={'/music'} component={Music}/>
+                <Route path={'/settings'} component={Settings}/>
+                <Route path={'/profile/:userId?'}
+                       render={() => <ComposedProfileContainer/>}/>
+                <Route path={'/dialogs'}
+                       render={() => <ComposedDialogsContainer/>}/>
+                <Route path={'/users'} render={() => <ComposedUserContainer/>}/>
+                {/*<Route path={'/login'} render={() => <Login/>}/>*/}
+                <Route path={'/login'} render={() => <LoginContainer/>}/>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = (state: AppRootStateType) => ({
+    isInitialized: state.app.isInitialized
+})
+
+export default compose<React.ComponentType>(withRouter, connect(mapStateToProps, {initializeApp}))(App)
+;

@@ -48,7 +48,7 @@ export const setAuthUserData = (data: {
 
 //thunk creator
 export const getAuthMe = () => (dispatch: Dispatch) => {
-    authApi.setAuthMe()
+    return authApi.setAuthMe()
         .then(data => {
             if (data.resultCode === 0) {
                 let {id, email, login, isAuth} = data.data;
