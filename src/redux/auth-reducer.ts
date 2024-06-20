@@ -86,7 +86,7 @@ export const login = (email: string, password: string, rememberMe: boolean): App
     }
 }
 
-export const logoutTC = (): AppThunk => async dispatch => {
+export const logout = (): AppThunk => async dispatch => {
     const result = await authApi.logout();
     if (result.data.resultCode === 0) {
         dispatch(setAuthUserData({id: null, email: null, login: null}, true));

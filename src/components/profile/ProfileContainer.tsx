@@ -44,7 +44,7 @@ type MapStateToPropsType = {
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
 })
 
 // const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
