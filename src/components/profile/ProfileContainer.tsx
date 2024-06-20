@@ -14,6 +14,8 @@ type ProfilePropsType = {
     getProfileStatus: (userId: string) => void
     updateProfileStatus: (status: string) => void
     status: string
+    currentUserId: number | null
+    isAuth: boolean
 }
 
 type PathParamsType = {
@@ -25,7 +27,7 @@ type ProfileContainerProps = ProfilePropsType & RouteComponentProps<PathParamsTy
 export class ProfileContainer extends React.Component <ProfileContainerProps> {
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if (!userId) userId = '31143'
+        if (!userId) userId = this.props.currentUserId?.toString()!
         this.props.getUserProfile(userId)
         this.props.getProfileStatus(userId)
     }
@@ -40,11 +42,15 @@ export class ProfileContainer extends React.Component <ProfileContainerProps> {
 type MapStateToPropsType = {
     profile: ProfileType
     status: string
+    currentUserId: number | null
+    isAuth: boolean
 }
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    currentUserId: state.auth.id,
+    isAuth: state.auth.isAuth
 })
 
 export const ComposedProfileContainer= compose<ComponentType>(connect(mapStateToProps, { getUserProfile, getProfileStatus, updateProfileStatus }), withRouter, withAuthRedirect)(ProfileContainer)
