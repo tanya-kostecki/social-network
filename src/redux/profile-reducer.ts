@@ -17,9 +17,16 @@ export type SetUserProfileActionType = {
     profile: ProfileType
 }
 
+type DeletePostActionType = ReturnType<typeof deletePost>
+
 export type SetStatusActionType = ReturnType<typeof setStatusAC>
 
-export type ActionsType = AddPostActionType | UpdatePostTextActionType | SetUserProfileActionType | SetStatusActionType
+export type ActionsType =
+    AddPostActionType
+    | UpdatePostTextActionType
+    | SetUserProfileActionType
+    | SetStatusActionType
+    | DeletePostActionType
 
 const initialState: ProfilePageType = {
     posts: [
@@ -60,6 +67,9 @@ export const profileReducer = (state = initialState, action: ActionsType): Profi
             }
             return {...state, posts: [newPost, ...state.posts]}
         }
+        case "DELETE-POST": {
+            return {...state, posts: state.posts.filter(p => p.id !== action.id)}
+        }
         case "SET-USER-PROFILE": {
             return {...state, profile: action.profile}
         }
@@ -76,6 +86,13 @@ export const addPost = (post: string): AddPostActionType => {
     return {
         type: 'ADD-POST',
         post
+    } as const
+}
+
+export const deletePost = (id: string) => {
+    return {
+        type: 'DELETE-POST',
+        id
     } as const
 }
 

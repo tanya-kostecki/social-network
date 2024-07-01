@@ -3,6 +3,7 @@ import classes from './ProfileInfo.module.css'
 import {ProfileType, UserType} from "../../../types";
 import {Preloader} from "../../common/preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 type ProfileInfoProps = {
     profile: ProfileType
@@ -28,7 +29,8 @@ export const ProfileInfo = ({ profile, status, updateProfileStatus }: ProfileInf
                     <span className={classes.descriptionSpan}>{profile.fullName}</span>
                     <span className={classes.descriptionSpan}>{profile.lookingForAJobDescription}</span>
                     <span className={classes.descriptionSpan}>{profile.contacts.facebook}</span>
-                    <ProfileStatus status={status} updateProfileStatus={updateProfileStatus}/>
+                    {/*<ProfileStatus status={status} updateProfileStatus={updateProfileStatus}/>*/}
+                    <ProfileStatusWithHooks status={status} updateProfileStatus={updateProfileStatus}/>
                 </div>
             </div>
         </>

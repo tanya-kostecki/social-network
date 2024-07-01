@@ -1,8 +1,8 @@
 import React from 'react';
 import classes from "./Posts.module.css";
-import { Post } from "./post/Post";
-import { PostType } from "../../../App";
-import { Field, InjectedFormProps, reduxForm } from "redux-form";
+import {Post} from "./post/Post";
+import {PostType} from "../../../App";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {required, validateMaxLength} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/form-controls/FormControls";
 
@@ -13,22 +13,22 @@ type PostsProps = {
     addPost: (newPostText: string) => void
 }
 
-export const Posts = (props: PostsProps) => {
+export function Posts(props: PostsProps) {
     const onSubmit = (formData: PostFormDataType) => {
         props.addPost(formData.post);
-        console.log(formData)
     }
-
+    console.log('YO')
     return (
         <div className={classes.posts}>
             <h3>My posts</h3>
-            <ReduxPostForm onSubmit={onSubmit} />
+            <ReduxPostForm onSubmit={onSubmit}/>
             <div className={classes.postsBlock}>
-                {props.posts.map(post => <Post key={post.id} message={post.message} likesCount={post.likesCount} />)}
+                {props.posts.map(post => <Post key={post.id} message={post.message}
+                                               likesCount={post.likesCount}/>)}
             </div>
         </div>
     );
-};
+}
 
 type PostFormDataType = {
     post: string;
