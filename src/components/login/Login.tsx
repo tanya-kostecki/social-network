@@ -10,16 +10,17 @@ type FormDataType = {
     password: string
     rememberMe: boolean
 }
-const LoginForm = (props: InjectedFormProps<FormDataType>) => {
+const LoginForm = ({error, handleSubmit}: InjectedFormProps<FormDataType>) => {
     return (
-        <form style={{display: 'flex', flexDirection: 'column', maxWidth: '200px'}} onSubmit={props.handleSubmit}>
+        <form style={{display: 'flex', flexDirection: 'column', maxWidth: '200px', padding: '20px'}}
+              onSubmit={handleSubmit}>
             <Field placeholder={'login'} type={'email'} component={Input} name={'login'} validate={[required]}/>
             <Field placeholder={'password'} type={'password'} component={Input} name={'password'}
                    validate={[required]}/>
             <div>
                 <Field type={'checkbox'} component={'input'} name={'rememberMe'}/>Remember me
             </div>
-            {props.error && <span className={styles.formError}>{props.error}</span>}
+            {error && <span className={styles.formError}>{error}</span>}
             <button>Login</button>
         </form>
     )
@@ -29,7 +30,7 @@ const ReduxLoginForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
 type LoginProps = {
     isAuth: boolean
-    login:(email: string, password: string, rememberMe: boolean) => void
+    login: (email: string, password: string, rememberMe: boolean) => void
 };
 export const Login = ({isAuth, login}: LoginProps) => {
     if (isAuth) return <Redirect to="/profile"/>

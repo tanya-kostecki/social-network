@@ -60,7 +60,6 @@ class App extends React.Component<AppProps> {
                 <Route path={'/dialogs'}
                        render={() => <ComposedDialogsContainer/>}/>
                 <Route path={'/users'} render={() => <ComposedUserContainer/>}/>
-                {/*<Route path={'/login'} render={() => <Login/>}/>*/}
                 <Route path={'/login'} render={() => <LoginContainer/>}/>
             </div>
         );

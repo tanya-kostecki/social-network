@@ -29,7 +29,7 @@ type MapStateToPropsType = {
     isFollowingProgress: number[]
 }
 
-type UsersProps = {
+type UsersContainerProps = {
     users: UserType[]
     pageSize: number
     totalUsersCount: number
@@ -42,7 +42,7 @@ type UsersProps = {
     unfollowUser: (userId: number) => void
 };
 
-class UsersContainer extends React.Component<UsersProps, UserType[]> {
+class UsersContainer extends React.Component<UsersContainerProps, UserType[]> {
     componentDidMount() {
         this.props.requestUsers(this.props.currentPage, this.props.pageSize)
     }
@@ -69,17 +69,6 @@ class UsersContainer extends React.Component<UsersProps, UserType[]> {
     }
 }
 
-// const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         isFollowingProgress: state.usersPage.isFollowingProgress
-//     }
-// }
-
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => {
     return {
         users: getUsers(state),
@@ -97,10 +86,3 @@ export const ComposedUserContainer = compose<ComponentType>(withAuthRedirect, co
     setCurrentPage,
     requestUsers
 }))(UsersContainer)
-
-// export default connect(mapStateToProps, {
-//     followUser,
-//     unfollowUser,
-//     setCurrentPage,
-//     getUsers
-// })(UsersContainer)

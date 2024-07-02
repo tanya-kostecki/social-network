@@ -47,35 +47,27 @@ export const setAuthUserData = (data: {
 
 
 //thunk creator
-export const getAuthMe = () => (dispatch: Dispatch) => {
-    return authApi.setAuthMe()
-        .then(data => {
-            if (data.resultCode === 0) {
-                let {id, email, login, isAuth} = data.data;
-                dispatch(setAuthUserData({id, email, login, isAuth: true}));
-            }
-        })
+export const getAuthMe = () => async (dispatch: Dispatch) => {
+    const data = await authApi.setAuthMe()
+    if (data.resultCode === 0) {
+        let {id, email, login, isAuth} = data.data;
+        dispatch(setAuthUserData({id, email, login, isAuth: true}));
+    }
 }
 
-export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: ThunkDispatch<AppRootStateType, unknown, AnyAction>) => {
-    authApi.login(email, password, rememberMe).then(response => {
-        if (response.data.resultCode === 0) {
-            dispatch(getAuthMe())
-        } else {
-            let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Error'
-            dispatch(stopSubmit('login', {_error: message}))
-        }
-    })
+export const login = (email: string, password: string, rememberMe: boolean) => async (dispatch: ThunkDispatch<AppRootStateType, unknown, AnyAction>) => {
+    const response = await authApi.login(email, password, rememberMe)
+    if (response.data.resultCode === 0) {
+        await dispatch(getAuthMe())
+    } else {
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Error'
+        dispatch(stopSubmit('login', {_error: message}))
+    }
 }
 
-export const logout = () => (dispatch: ThunkDispatch<AppRootStateType, unknown, AnyAction>) => {
-    authApi.logout().then(response => {
-        if (response.data.resultCode === 0) {
-            dispatch(setAuthUserData({id: null, email: null, login: null, isAuth: false}))
-        }
-    })
+export const logout = () => async (dispatch: ThunkDispatch<AppRootStateType, unknown, AnyAction>) => {
+    const response = await authApi.logout()
+    if (response.data.resultCode === 0) {
+        dispatch(setAuthUserData({id: null, email: null, login: null, isAuth: false}))
+    }
 }
-
-
-
-

@@ -112,23 +112,17 @@ export const setStatusAC = (status: string) => {
 
 
 //thunk creators
-export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
-    profileApi.getUserProfile(userId)
-        .then(data => {
-            dispatch(setUserProfile(data))
-        })
+export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
+    const data = await profileApi.getUserProfile(userId)
+    dispatch(setUserProfile(data))
 }
 
-export const getProfileStatus = (userId: string) => (dispatch: Dispatch) => {
-    profileApi.getStatus(userId)
-        .then(res => {
-            dispatch(setStatusAC(res.data))
-        })
+export const getProfileStatus = (userId: string) => async (dispatch: Dispatch) => {
+    const res = await profileApi.getStatus(userId)
+    dispatch(setStatusAC(res.data))
 }
 
-export const updateProfileStatus = (status: string) => (dispatch: Dispatch) => {
-    profileApi.updateStatus(status)
-        .then(res => {
-            dispatch(setStatusAC(status))
-        })
+export const updateProfileStatus = (status: string) => async (dispatch: Dispatch) => {
+    const res = await profileApi.updateStatus(status)
+    dispatch(setStatusAC(status))
 }

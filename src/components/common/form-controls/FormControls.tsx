@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {InputHTMLAttributes, TextareaHTMLAttributes} from 'react';
 import styles from './FormControls.module.css'
 import {WrappedFieldProps} from "redux-form";
 
-type FormControlProps = {
-    children: React.ReactNode
+type MetaProps = {
     meta: {
         touched: boolean
         error?: string
     }
 }
+type FormControlProps = {
+    children: React.ReactNode
+} & MetaProps
+
 const FormControl = ({ children, meta}: FormControlProps) => {
     const hasError = meta.touched && meta.error
     return (
@@ -19,28 +22,16 @@ const FormControl = ({ children, meta}: FormControlProps) => {
     );
 }
 
-type TextareaProps = WrappedFieldProps & {
-    input: React.TextareaHTMLAttributes<HTMLTextAreaElement>;
-    meta: {
-        touched: boolean
-        error?: string
-    }
-};
+type FieldProps <T> = WrappedFieldProps & {
+    input: T
+} & MetaProps
 
-type InputProps = WrappedFieldProps & {
-    input: React.InputHTMLAttributes<HTMLInputElement>;
-    meta: {
-        touched: boolean
-        error?: string
-    }
-};
-
-export const Textarea = (props: TextareaProps) => {
+export const Textarea = (props: FieldProps<TextareaHTMLAttributes<HTMLTextAreaElement>>) => {
     const { input, meta, ...restProps } = props;
     return <FormControl meta={meta}><textarea {...input} {...restProps}/></FormControl>
 };
 
-export const Input = (props: InputProps) => {
+export const Input = (props: FieldProps<InputHTMLAttributes<HTMLInputElement>>) => {
     const { input, meta, ...restProps } = props;
     return <FormControl meta={meta}><input {...input} {...restProps}/></FormControl>
 };
