@@ -1,16 +1,17 @@
 import React from 'react';
 import classes from './ProfileInfo.module.css'
-import {ProfileType} from "../../../types";
 import {Preloader} from "../../common/preloader/Preloader";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/user.png";
+import {ProfileType} from "../../../api/api";
 
 type ProfileInfoProps = {
     profile: ProfileType
     status: string
     updateProfileStatus: (status: string) => void
+    isOwner: boolean
 }
-export const ProfileInfo = ({ profile, status, updateProfileStatus }: ProfileInfoProps) => {
+export const ProfileInfo = ({ profile, status, updateProfileStatus, isOwner }: ProfileInfoProps) => {
     return (
         !profile ? <Preloader/> :
         < >
@@ -20,11 +21,14 @@ export const ProfileInfo = ({ profile, status, updateProfileStatus }: ProfileInf
                 className={classes.backgroundImg}
             />
             <div className={classes.descriptionBlock}>
-                <img
-                    src={profile.photos.large || userPhoto}
-                    alt={'avatar'}
-                    className={classes.avatar}
-                />
+                <div>
+                    <img
+                        src={profile.photos.large || userPhoto}
+                        alt={'avatar'}
+                        className={classes.avatar}
+                    />
+                    {isOwner && <input type={'file'}/>}
+                </div>
                 <div>
                     <span className={classes.descriptionSpan}>{profile.fullName}</span>
                     <span className={classes.descriptionSpan}>{profile.lookingForAJobDescription}</span>

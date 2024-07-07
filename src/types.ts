@@ -1,3 +1,5 @@
+import {ProfileType} from "./api/api";
+
 export type PostType = {
     id: string
     message: string
@@ -17,31 +19,14 @@ export type MessageType = {
 //     avatar: string
 // }
 
-export type ProfileType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    }
-    photos: {
-        small: string
-        large: string
-    }
-}
+
 
 export type ProfilePageType = {
     posts: PostType[]
     profile: ProfileType
     status: string
+
+    isProfileFetching: boolean
 }
 
 export type DialogsPageType = {

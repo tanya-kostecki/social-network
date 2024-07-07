@@ -1,6 +1,6 @@
 import {v1} from "uuid";
-import {ProfilePageType, ProfileType} from "../types";
-import {profileApi} from "../api/api";
+import {ProfilePageType} from "../types";
+import {profileApi, ProfileType} from "../api/api";
 import {Dispatch} from "redux";
 
 export type AddPostActionType = {
@@ -20,6 +20,7 @@ export type SetUserProfileActionType = {
 type DeletePostActionType = ReturnType<typeof deletePost>
 
 export type SetStatusActionType = ReturnType<typeof setStatusAC>
+export type SetISProfileFetchingActionType = ReturnType<typeof setIsProfileFetching>
 
 export type ActionsType =
     AddPostActionType
@@ -27,6 +28,7 @@ export type ActionsType =
     | SetUserProfileActionType
     | SetStatusActionType
     | DeletePostActionType
+    | SetISProfileFetchingActionType
 
 const initialState: ProfilePageType = {
     posts: [
@@ -54,7 +56,8 @@ const initialState: ProfilePageType = {
             large: ''
         }
     },
-    status: ''
+    status: '',
+    isProfileFetching: false
 }
 
 export const profileReducer = (state = initialState, action: ActionsType): ProfilePageType => {
@@ -75,6 +78,9 @@ export const profileReducer = (state = initialState, action: ActionsType): Profi
         }
         case "SET-STATUS": {
             return {...state, status: action.status}
+        }
+        case "SET-PROFILE-FETCHING": {
+            return {...state, isProfileFetching: action.isProfileFetching}
         }
         default:
             return state
@@ -110,10 +116,18 @@ export const setStatusAC = (status: string) => {
     } as const
 }
 
+export const setIsProfileFetching = (isProfileFetching: boolean) => {
+    return {
+        type: 'SET-PROFILE-FETCHING',
+        isProfileFetching
+    } as const
+}
 
 //thunk creators
 export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
+    dispatch(setIsProfileFetching(true)) //
     const data = await profileApi.getUserProfile(userId)
+    dispatch(setIsProfileFetching(false)) //
     dispatch(setUserProfile(data))
 }
 

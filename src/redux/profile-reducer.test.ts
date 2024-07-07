@@ -30,7 +30,8 @@ beforeEach(() => {
                 large: ''
             }
         },
-        status: ''
+        status: '',
+        isProfileFetching: false
     }
 })
 

@@ -50,7 +50,8 @@ export const setAuthUserData = (data: {
 export const getAuthMe = () => async (dispatch: Dispatch) => {
     const data = await authApi.setAuthMe()
     if (data.resultCode === 0) {
-        let {id, email, login, isAuth} = data.data;
+        // let {id, email, login, isAuth} = data.data;
+        let {id, email, login} = data.data;
         dispatch(setAuthUserData({id, email, login, isAuth: true}));
     }
 }
