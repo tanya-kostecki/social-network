@@ -1,4 +1,4 @@
-import {AnyAction, Dispatch} from "redux";
+import {AnyAction} from "redux";
 import {getAuthMe} from "./auth-reducer";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootStateType} from "./redux-store";

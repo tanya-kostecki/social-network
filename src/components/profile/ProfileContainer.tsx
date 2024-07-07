@@ -25,16 +25,29 @@ type PathParamsType = {
 type ProfileContainerProps = ProfilePropsType & RouteComponentProps<PathParamsType>;
 
 export class ProfileContainer extends React.Component <ProfileContainerProps> {
-    componentDidMount() {
+    refreshUser() {
         let userId = this.props.match.params.userId
         if (!userId) userId = this.props.currentUserId?.toString()!
         this.props.getUserProfile(userId)
         this.props.getProfileStatus(userId)
+
+    }
+
+    componentDidMount() {
+        this.refreshUser()
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileContainerProps>) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshUser()
+        }
     }
 
     render() {
         return (
-            <Profile profile={this.props.profile} status={this.props.status} updateProfileStatus={this.props.updateProfileStatus}/>
+            <Profile profile={this.props.profile} status={this.props.status}
+                     updateProfileStatus={this.props.updateProfileStatus}/>
+
         );
     }
 }
@@ -50,7 +63,11 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     currentUserId: state.auth.id,
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
 })
 
-export default compose<ComponentType>(connect(mapStateToProps, { getUserProfile, getProfileStatus, updateProfileStatus }), withRouter, withAuthRedirect)(ProfileContainer)
+export default compose<ComponentType>(connect(mapStateToProps, {
+    getUserProfile,
+    getProfileStatus,
+    updateProfileStatus
+}), withRouter, withAuthRedirect)(ProfileContainer)

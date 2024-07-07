@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './ProfileInfo.module.css'
-import {ProfileType, UserType} from "../../../types";
+import {ProfileType} from "../../../types";
 import {Preloader} from "../../common/preloader/Preloader";
-import {ProfileStatus} from "./ProfileStatus";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
+import userPhoto from "../../../assets/images/user.png";
 
 type ProfileInfoProps = {
     profile: ProfileType
@@ -21,7 +21,7 @@ export const ProfileInfo = ({ profile, status, updateProfileStatus }: ProfileInf
             />
             <div className={classes.descriptionBlock}>
                 <img
-                    src={profile.photos.large}
+                    src={profile.photos.large || userPhoto}
                     alt={'avatar'}
                     className={classes.avatar}
                 />
