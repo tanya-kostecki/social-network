@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import classes from './ProfileInfo.module.css'
 import {Preloader} from "../../common/preloader/Preloader";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
@@ -10,8 +10,19 @@ type ProfileInfoProps = {
     status: string
     updateProfileStatus: (status: string) => void
     isOwner: boolean
+    savePhoto: (photo: File) => void
+    // savePhoto: (photo: File) => string
 }
-export const ProfileInfo = ({ profile, status, updateProfileStatus, isOwner }: ProfileInfoProps) => {
+export const ProfileInfo = ({ profile, status, updateProfileStatus, isOwner, savePhoto }: ProfileInfoProps) => {
+    const onImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
+            savePhoto(e.target.files[0])
+        }
+    }
+    console.log(profile)
+
+
+
     return (
         !profile ? <Preloader/> :
         < >
@@ -23,11 +34,11 @@ export const ProfileInfo = ({ profile, status, updateProfileStatus, isOwner }: P
             <div className={classes.descriptionBlock}>
                 <div>
                     <img
-                        src={profile.photos.large || userPhoto}
+                        src={profile.photos.small || userPhoto}
                         alt={'avatar'}
                         className={classes.avatar}
                     />
-                    {isOwner && <input type={'file'}/>}
+                    {isOwner && <input type={'file'} onChange={onImageUpload}/>}
                 </div>
                 <div>
                     <span className={classes.descriptionSpan}>{profile.fullName}</span>

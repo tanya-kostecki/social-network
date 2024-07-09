@@ -59,13 +59,13 @@ class App extends React.Component<AppProps> {
 
                 <Route path={'/profile/:userId?'}
                        render={() => (
-                           <React.Suspense fallback={<div>Loading...</div>}>
+                           <React.Suspense fallback={<Preloader/>}>
                                <ProfileContainer/>
                            </React.Suspense>
                        )}/>
                 <Route path={'/dialogs'}
                        render={() => (
-                           <React.Suspense fallback={<div>Loading...</div>}>
+                           <React.Suspense fallback={<Preloader/>}>
                                <DialogsContainer/>
                            </React.Suspense>
                        )}/>

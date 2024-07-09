@@ -21,6 +21,7 @@ type DeletePostActionType = ReturnType<typeof deletePost>
 
 export type SetStatusActionType = ReturnType<typeof setStatusAC>
 export type SetISProfileFetchingActionType = ReturnType<typeof setIsProfileFetching>
+export type SetProfilePhotoType = ReturnType<typeof setProfilePhoto>
 
 export type ActionsType =
     AddPostActionType
@@ -28,7 +29,8 @@ export type ActionsType =
     | SetUserProfileActionType
     | SetStatusActionType
     | DeletePostActionType
-    | SetISProfileFetchingActionType
+    | SetISProfileFetchingActionType | SetProfilePhotoType
+
 
 const initialState: ProfilePageType = {
     posts: [
@@ -82,6 +84,12 @@ export const profileReducer = (state = initialState, action: ActionsType): Profi
         case "SET-PROFILE-FETCHING": {
             return {...state, isProfileFetching: action.isProfileFetching}
         }
+        case "SET-PROFILE-PHOTO": {
+            return {
+                ...state,
+                profile: {...state.profile, photos: {...state.profile.photos, ...action.profilePhoto}}
+            }
+        }
         default:
             return state
     }
@@ -123,6 +131,13 @@ export const setIsProfileFetching = (isProfileFetching: boolean) => {
     } as const
 }
 
+export const setProfilePhoto = (profilePhoto: {large: string, small: string}) => {
+    return {
+        type: 'SET-PROFILE-PHOTO',
+        profilePhoto
+    } as const
+}
+
 //thunk creators
 export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
     dispatch(setIsProfileFetching(true)) //
@@ -138,5 +153,16 @@ export const getProfileStatus = (userId: string) => async (dispatch: Dispatch) =
 
 export const updateProfileStatus = (status: string) => async (dispatch: Dispatch) => {
     const res = await profileApi.updateStatus(status)
-    dispatch(setStatusAC(status))
+    if (res.data.resultCode === 0) {
+        dispatch(setStatusAC(status))
+    }
 }
+
+export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
+    const res = await profileApi.savePhoto(photo)
+    if (res.data.resultCode === 0) {
+        console.log(res)
+        dispatch(setProfilePhoto(res.data.data.photos))
+        // return res.data.data.image
+    }
+};

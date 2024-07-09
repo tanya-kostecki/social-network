@@ -51,13 +51,12 @@ export const profileApi = {
     savePhoto: async (photoFile: File) => {
         const formData = new FormData()
         formData.append('image', photoFile)
-        return instance.put<BaseResponse<{ image: File}>>(`profile/photo`, formData, {
+        return instance.put<BaseResponse< {photos: {large: string, small: string}}>>(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
     }
-
 }
 
 export type BaseResponse<T = {}> = {

@@ -2,7 +2,7 @@ import React, {ComponentType} from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
-import {getProfileStatus, getUserProfile, updateProfileStatus} from "../../redux/profile-reducer";
+import {getProfileStatus, getUserProfile, savePhoto, updateProfileStatus} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -18,6 +18,8 @@ type ProfilePropsType = {
     currentUserId: number | null
     isAuth: boolean
     isProfileFetching: boolean
+    savePhoto: (photo: File) => void
+    // savePhoto: (photo: File) => string
 }
 
 type PathParamsType = {
@@ -50,7 +52,9 @@ export class ProfileContainer extends React.Component <ProfileContainerProps> {
             this.props.isProfileFetching ? <Preloader/> : (
                 <Profile profile={this.props.profile} status={this.props.status}
                          updateProfileStatus={this.props.updateProfileStatus}
-                         isOwner={!this.props.match.params.userId}/>)
+                         isOwner={!this.props.match.params.userId}
+                         savePhoto={this.props.savePhoto}
+                />)
 
         );
     }
@@ -69,12 +73,11 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     status: state.profilePage.status,
     currentUserId: state.auth.id,
     isAuth: state.auth.isAuth,
-
     isProfileFetching: state.profilePage.isProfileFetching
 })
 
 export default compose<ComponentType>(connect(mapStateToProps, {
     getUserProfile,
     getProfileStatus,
-    updateProfileStatus
+    updateProfileStatus, savePhoto
 }), withRouter, withAuthRedirect)(ProfileContainer)
