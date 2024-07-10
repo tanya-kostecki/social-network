@@ -15,6 +15,7 @@ beforeEach(() => {
             lookingForAJob: false,
             lookingForAJobDescription: '',
             fullName: '',
+            aboutMe: '',
             contacts: {
                 github: '',
                 vk: '',
@@ -31,7 +32,8 @@ beforeEach(() => {
             }
         },
         status: '',
-        isProfileFetching: false
+        isProfileFetching: false,
+        editMode: false
     }
 })
 

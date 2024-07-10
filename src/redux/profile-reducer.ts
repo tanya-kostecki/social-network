@@ -1,7 +1,8 @@
 import {v1} from "uuid";
 import {ProfilePageType} from "../types";
 import {profileApi, ProfileType} from "../api/api";
-import {Dispatch} from "redux";
+import {AppThunk} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -22,6 +23,7 @@ type DeletePostActionType = ReturnType<typeof deletePost>
 export type SetStatusActionType = ReturnType<typeof setStatusAC>
 export type SetISProfileFetchingActionType = ReturnType<typeof setIsProfileFetching>
 export type SetProfilePhotoType = ReturnType<typeof setProfilePhoto>
+type SetEditModeActionType = ReturnType<typeof setEditMode>
 
 export type ActionsType =
     AddPostActionType
@@ -29,7 +31,7 @@ export type ActionsType =
     | SetUserProfileActionType
     | SetStatusActionType
     | DeletePostActionType
-    | SetISProfileFetchingActionType | SetProfilePhotoType
+    | SetISProfileFetchingActionType | SetProfilePhotoType | SetEditModeActionType
 
 
 const initialState: ProfilePageType = {
@@ -43,6 +45,7 @@ const initialState: ProfilePageType = {
         lookingForAJob: false,
         lookingForAJobDescription: '',
         fullName: '',
+        aboutMe: '',
         contacts: {
             github: '',
             vk: '',
@@ -59,7 +62,8 @@ const initialState: ProfilePageType = {
         }
     },
     status: '',
-    isProfileFetching: false
+    editMode: false,
+    isProfileFetching: false,
 }
 
 export const profileReducer = (state = initialState, action: ActionsType): ProfilePageType => {
@@ -81,14 +85,20 @@ export const profileReducer = (state = initialState, action: ActionsType): Profi
         case "SET-STATUS": {
             return {...state, status: action.status}
         }
+        //
         case "SET-PROFILE-FETCHING": {
             return {...state, isProfileFetching: action.isProfileFetching}
         }
+        //
         case "SET-PROFILE-PHOTO": {
             return {
                 ...state,
                 profile: {...state.profile, photos: {...state.profile.photos, ...action.profilePhoto}}
             }
+        }
+        //
+        case "SET-EDIT-MODE": {
+            return {...state, editMode: action.editMode}
         }
         default:
             return state
@@ -131,38 +141,56 @@ export const setIsProfileFetching = (isProfileFetching: boolean) => {
     } as const
 }
 
-export const setProfilePhoto = (profilePhoto: {large: string, small: string}) => {
+export const setProfilePhoto = (profilePhoto: { large: string, small: string }) => {
     return {
         type: 'SET-PROFILE-PHOTO',
         profilePhoto
     } as const
 }
+//
+export const setEditMode = (editMode: boolean) => {
+    return {
+        type: 'SET-EDIT-MODE',
+        editMode
+    } as const
+}
 
 //thunk creators
-export const getUserProfile = (userId: string) => async (dispatch: Dispatch) => {
+export const getUserProfile = (userId: string): AppThunk => async (dispatch) => {
     dispatch(setIsProfileFetching(true)) //
     const data = await profileApi.getUserProfile(userId)
     dispatch(setIsProfileFetching(false)) //
     dispatch(setUserProfile(data))
 }
 
-export const getProfileStatus = (userId: string) => async (dispatch: Dispatch) => {
+export const getProfileStatus = (userId: string): AppThunk => async (dispatch) => {
     const res = await profileApi.getStatus(userId)
     dispatch(setStatusAC(res.data))
 }
 
-export const updateProfileStatus = (status: string) => async (dispatch: Dispatch) => {
+export const updateProfileStatus = (status: string): AppThunk => async (dispatch) => {
     const res = await profileApi.updateStatus(status)
     if (res.data.resultCode === 0) {
         dispatch(setStatusAC(status))
     }
 }
 
-export const savePhoto = (photo: File) => async (dispatch: Dispatch) => {
+export const savePhoto = (photo: File): AppThunk => async (dispatch) => {
     const res = await profileApi.savePhoto(photo)
     if (res.data.resultCode === 0) {
         console.log(res)
         dispatch(setProfilePhoto(res.data.data.photos))
-        // return res.data.data.image
     }
 };
+
+export const updateProfile = (profile: ProfileType): AppThunk => async (dispatch, getState) => {
+    dispatch(setEditMode(true))
+    const userId = getState().auth.id?.toString()
+    const res = await profileApi.updateProfile(profile)
+    if (res.data.resultCode === 0) {
+        dispatch(getUserProfile(userId!))
+        dispatch(setEditMode(false))
+    } else {
+        dispatch(stopSubmit('edit-profile', {_error: res.data.messages[0]}))
+    }
+}

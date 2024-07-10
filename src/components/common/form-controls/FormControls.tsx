@@ -12,7 +12,7 @@ type FormControlProps = {
     children: React.ReactNode
 } & MetaProps
 
-const FormControl = ({ children, meta}: FormControlProps) => {
+const FormControl = ({children, meta}: FormControlProps) => {
     const hasError = meta.touched && meta.error
     return (
         <div className={styles.formControl + ' ' + (hasError ? styles.error : '')}>
@@ -22,16 +22,17 @@ const FormControl = ({ children, meta}: FormControlProps) => {
     );
 }
 
-type FieldProps <T> = WrappedFieldProps & {
+type FieldProps<T> = WrappedFieldProps & {
     input: T
 } & MetaProps
 
 export const Textarea = (props: FieldProps<TextareaHTMLAttributes<HTMLTextAreaElement>>) => {
-    const { input, meta, ...restProps } = props;
+    const {input, meta, ...restProps} = props;
     return <FormControl meta={meta}><textarea {...input} {...restProps}/></FormControl>
+
 };
 
 export const Input = (props: FieldProps<InputHTMLAttributes<HTMLInputElement>>) => {
-    const { input, meta, ...restProps } = props;
+    const {input, meta, ...restProps} = props;
     return <FormControl meta={meta}><input {...input} {...restProps}/></FormControl>
 };

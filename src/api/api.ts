@@ -56,6 +56,9 @@ export const profileApi = {
                 'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    updateProfile: async (profile: ProfileType) => {
+        return instance.put<BaseResponse<ProfileType>>('profile', profile)
     }
 }
 
@@ -75,7 +78,6 @@ export type AuthType = {
     id: number
     email: string
     login: string
-    // isAuth: boolean
 }
 
 export type UserFromServerType = {
@@ -89,6 +91,7 @@ export type ProfileType = {
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
+    aboutMe: string
     contacts: {
         github: string
         vk: string

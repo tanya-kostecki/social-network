@@ -2,7 +2,13 @@ import React, {ComponentType} from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
-import {getProfileStatus, getUserProfile, savePhoto, updateProfileStatus} from "../../redux/profile-reducer";
+import {
+    getProfileStatus,
+    getUserProfile,
+    savePhoto,
+    updateProfile,
+    updateProfileStatus
+} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -19,7 +25,9 @@ type ProfilePropsType = {
     isAuth: boolean
     isProfileFetching: boolean
     savePhoto: (photo: File) => void
-    // savePhoto: (photo: File) => string
+    updateProfile: (profile: ProfileType) => void
+    editMode: boolean
+    // updateProfile: (profile: ProfileType) => Promise<any>
 }
 
 type PathParamsType = {
@@ -54,6 +62,8 @@ export class ProfileContainer extends React.Component <ProfileContainerProps> {
                          updateProfileStatus={this.props.updateProfileStatus}
                          isOwner={!this.props.match.params.userId}
                          savePhoto={this.props.savePhoto}
+                         updateProfile={this.props.updateProfile}
+                         editMode={this.props.editMode}
                 />)
 
         );
@@ -66,6 +76,7 @@ type MapStateToPropsType = {
     currentUserId: number | null
     isAuth: boolean
     isProfileFetching: boolean
+    editMode: boolean
 }
 
 const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
@@ -73,11 +84,12 @@ const mapStateToProps = (state: AppRootStateType): MapStateToPropsType => ({
     status: state.profilePage.status,
     currentUserId: state.auth.id,
     isAuth: state.auth.isAuth,
-    isProfileFetching: state.profilePage.isProfileFetching
+    isProfileFetching: state.profilePage.isProfileFetching,
+    editMode: state.profilePage.editMode
 })
 
 export default compose<ComponentType>(connect(mapStateToProps, {
     getUserProfile,
     getProfileStatus,
-    updateProfileStatus, savePhoto
+    updateProfileStatus, savePhoto, updateProfile
 }), withRouter, withAuthRedirect)(ProfileContainer)

@@ -25,7 +25,7 @@ export type ProfilePageType = {
     posts: PostType[]
     profile: ProfileType
     status: string
-
+    editMode: boolean
     isProfileFetching: boolean
 }
 
