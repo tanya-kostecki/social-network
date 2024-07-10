@@ -5,7 +5,7 @@ import {sidebarReducer} from "./sidebar-reducer";
 import {usersReducer} from "./users-reducer";
 import {authReducer} from "./auth-reducer";
 import {reducer as formReducer} from 'redux-form'
-import thunk, {ThunkAction} from "redux-thunk";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {appReducer} from "./app-reducer";
 
 const rootReducer = combineReducers({
@@ -29,6 +29,8 @@ export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(t
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppThunk = ThunkAction<void, AppRootStateType, unknown, AnyAction>
+
+export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>;
 
 
 //@ts-ignore

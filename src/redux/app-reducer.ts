@@ -1,7 +1,7 @@
-import {AnyAction} from "redux";
+import {AnyAction, Dispatch} from "redux";
 import {getAuthMe} from "./auth-reducer";
 import {ThunkDispatch} from "redux-thunk";
-import {AppRootStateType} from "./redux-store";
+import {AppDispatch, AppRootStateType, AppThunk} from "./redux-store";
 
 type InitialStateType = {
     isInitialized: boolean
@@ -27,8 +27,9 @@ export const initializationSuccess = () => ({type: 'INITIALIZATION-SUCCESS'} as 
 
 
 //thunk creator
-export const initializeApp = () => (dispatch: ThunkDispatch<AppRootStateType, unknown, AnyAction>) => {
+export const initializeApp = () => async (dispatch: AppDispatch) => {
     dispatch(getAuthMe()).then(() => dispatch(initializationSuccess()))
+
 }
 
 

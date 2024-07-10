@@ -31,12 +31,6 @@ export const ProfileInfo = ({profile, status, updateProfileStatus, isOwner, save
         dispatch(setEditMode(true))
     }
 
-    // const onFormSubmit = (formData: ProfileType) => {
-    //     updateProfile(formData).then(() => {
-    //         setEditMode(false)
-    //     }).catch(err => console.log(err))
-    // }
-
     const onFormSubmit = (formData: ProfileType) => {
         updateProfile(formData)
     }

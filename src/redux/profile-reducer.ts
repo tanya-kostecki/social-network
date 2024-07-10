@@ -184,7 +184,6 @@ export const savePhoto = (photo: File): AppThunk => async (dispatch) => {
 };
 
 export const updateProfile = (profile: ProfileType): AppThunk => async (dispatch, getState) => {
-    dispatch(setEditMode(true))
     const userId = getState().auth.id?.toString()
     const res = await profileApi.updateProfile(profile)
     if (res.data.resultCode === 0) {

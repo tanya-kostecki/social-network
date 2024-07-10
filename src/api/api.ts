@@ -25,16 +25,25 @@ export const authApi = {
     setAuthMe: async () => {
         return instance.get<BaseResponse<AuthType>>('auth/me').then(res => res.data)
     },
-    login: async (email: string, password: string,rememberMe: boolean = false) => {
+    login: async (email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) => {
+        debugger
         return instance.post<BaseResponse<LoginDataType>>('auth/login', {
             email,
             password,
-            rememberMe
+            rememberMe,
+            captcha
         })
     },
     logout: async () => {
         return instance.delete<BaseResponse>('auth/login')
     }
+}
+
+export const securityApi = {
+    getCaptcha: async () => {
+        return instance.get<{url: string }>('security/get-captcha-url')
+    },
+
 }
 
 export const profileApi = {
